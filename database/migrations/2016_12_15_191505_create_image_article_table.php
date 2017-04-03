@@ -18,7 +18,7 @@ class CreateImageArticleTable extends Migration
             $table->integer('article_id')->unsigned();
             $table->string('url_image')->nullable();
             $table->timestamps();
-            $table->foreign('article_id')->references('article_id')->on('article')
+            $table->foreign('article_id')->references('id')->on('article')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
     }
@@ -31,6 +31,5 @@ class CreateImageArticleTable extends Migration
     public function down()
     {
         Schema::drop('article_images');
-
     }
 }

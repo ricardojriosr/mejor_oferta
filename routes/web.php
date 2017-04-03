@@ -12,5 +12,21 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::resource('categories', 'CategoryController');
+Route::get('categories/{id}/destroy', [
+    'uses'  => 'CategoryController@destroy',
+    'as'    => 'categories.delete'
+]);
+
+Route::resource('subcategories', 'SubcategoryController');
+Route::get('subcategories/{id}/destroy', [
+    'uses'  => 'SubcategoryController@destroy',
+    'as'    => 'subcategories.delete'
+]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

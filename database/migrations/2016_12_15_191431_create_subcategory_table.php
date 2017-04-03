@@ -14,13 +14,13 @@ class CreateSubcategoryTable extends Migration
     public function up()
     {
         Schema::create('subcategory', function (Blueprint $table) {
-            $table->increments('subcategory_id');
+            $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->foreign('category_id')->references('category_id')->on('category')
+            $table->foreign('category_id')->references('id')->on('category')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
     }

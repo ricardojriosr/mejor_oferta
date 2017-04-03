@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use Cocur\Slugify\Slugify;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -14,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('categories.index', ['categories' => $categories]);
+        $categories = Category::orderBy('id', 'DESC')->paginate(8);
+        return view('backend.categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -25,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('backend.categories.create');
     }
 
     /**
@@ -34,11 +36,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $category = new Category($request->all());
+        $response = $request->all();
+        $category = new Category($response);
+        $slugify = new Slugify();
+        $category->slug = $slugify->slugify($response['name'], '_'); 
         $category->save();
-        $this=>index();
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -49,8 +54,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::find($id);
-        return view('categories.detail', ['category' => $category]);
+        $category = Category::Find($id);
+        return view('backend.categories.detail', ['category' => $category]);
     }
 
     /**
@@ -61,8 +66,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        return view('categories.edit', ['category' => $category]);
+        $category = Category::Find($id);
+        return view('backend.categories.edit', ['category' => $category]);
     }
 
     /**
@@ -72,12 +77,15 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $category = Category::find($id);
-        $category->fill($request->all());
+        $response = $request->all();
+        $category = Category::Find($id);
+        $category->fill($response);
+        $slugify = new Slugify();
+        $category->slug = $slugify->slugify($response['name'], '_'); 
         $category->save();
-        $this->index();
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -88,8 +96,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
+        $category = Category::Find($id);
         $category->delete();
-        $this->index();
+        return redirect()->route('categories.index');
     }
 }

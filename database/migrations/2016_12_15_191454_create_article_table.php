@@ -14,7 +14,7 @@ class CreateArticleTable extends Migration
     public function up()
     {
         Schema::create('article', function (Blueprint $table) {
-            $table->increments('article_id');
+            $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->integer('subcategory_id')->unsigned();
             $table->string('name')->nullable();
@@ -22,9 +22,9 @@ class CreateArticleTable extends Migration
             $table->string('description')->nullable();
             $table->integer('quantity');
             $table->timestamps();
-            $table->foreign('category_id')->references('category_id')->on('category')
+            $table->foreign('category_id')->references('id')->on('category')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('subcategory_id')->references('subcategory_id')->on('subcategory')
+            $table->foreign('subcategory_id')->references('id')->on('subcategory')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
     }
