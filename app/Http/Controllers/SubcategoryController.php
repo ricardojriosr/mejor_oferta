@@ -103,4 +103,20 @@ class SubcategoryController extends Controller
         $subcategory->delete();
         return redirect()->route('subcategories.index');
     }
+
+
+    /* AJAX FUNCTION */
+    public function fill_subcategories(Request $request, $id) {
+        $response = "";
+        if($request->ajax()){
+            $subcategory = Subcategory::where("category_id","=",$id)->first();
+            if (count($subcategory) > 0) {
+                foreach($subcategory->get() as $sb) {
+                    $response .= "<option value='".$sb->id."'>".$sb->name."</option>";
+                }
+            }
+        }
+        return $response;
+    }
+
 }
