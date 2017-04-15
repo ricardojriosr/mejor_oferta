@@ -20,12 +20,15 @@
 
                     <div class="form-group">
                         <label for="subcategory_id">Subcategory</label>
-                        <select name="subcategory_id" id="subcategory_id" class="form-control select-category" placeholder="Select an option..." data-placeholder="Select an option...">
+                        <select name="subcategory_id" id="subcategory_id" class="form-control select-category" placeholder="Select an option..." data-placeholder="Select an option..." required>
                         <option value="" selected></option>
                         </select>
                     </div>
 
-
+                    <div class="form-group">
+                        {!! Form::label('name','Name) !!}
+                        {!! Form::text('name',null,['class' => 'form-control','required', 'placeholder' => 'Name of Article']) !!}
+                    </div>
 
                     {{ Form::close() }}
                 </div>

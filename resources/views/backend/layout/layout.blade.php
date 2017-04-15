@@ -53,6 +53,7 @@
                         @if (Auth())
                             <li><a href="{{ Route('categories.index') }}">Categories</a></li>
                             <li><a href="{{ Route('subcategories.index') }}">Subcategories</a></li>
+                            <li><a href="{{ Route('articles.index')}}">Articles</a></li>
                         @endif
                     </ul>
 
