@@ -11,7 +11,16 @@
                     <a href="{{ Route('articles.index') }}" class="btn btn-default">List</a>
                     <br>
                     <br>
-                    {{ Form::open(['route' => 'articles.store', 'method' => 'POST']) }}
+                    {{ Form::open(['route' => 'articles.store', 'method' => 'POST', 'files' => true]) }}
+
+                    <div class="form-group">
+                        <div class="alert alert-info fade in alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                            <strong>Info:</strong> The first image here would appear as profile photo on your article.
+                        </div>
+                        {!! Form::label('image','Article Images')!!}
+                        {!! Form::file('image[]',['multiple' => 'multiple','class' => 'image_article']) !!}
+                    </div>
 
                     <div class="form-group">
                         {!! Form::label('category_id','Category')!!}
@@ -21,13 +30,32 @@
                     <div class="form-group">
                         <label for="subcategory_id">Subcategory</label>
                         <select name="subcategory_id" id="subcategory_id" class="form-control select-category" placeholder="Select an option..." data-placeholder="Select an option..." required>
-                        <option value="" selected></option>
+                        <option value="" selected>Select an option...</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('name','Name) !!}
-                        {!! Form::text('name',null,['class' => 'form-control','required', 'placeholder' => 'Name of Article']) !!}
+                        {!! Form::label('name','Name') !!}
+                        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Article Name', 'required']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('display_name','Display Name') !!}
+                        {!! Form::text('display_name', null, ['class' => 'form-control', 'placeholder' => 'Article Display Name', 'required']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('description','Decription')!!}
+                        {{ Form::textarea('description', null, ['size' => '30x5','class' => 'form-control', 'placeholder' => 'Description', 'required']) }}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('quantity','Quantity')!!}
+                        {!! Form::number('quantity', null, ['class' => 'form-control', 'placeholder' => 'Article Quantity', 'required']) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     </div>
 
                     {{ Form::close() }}
@@ -45,6 +73,11 @@
 <script>
 
     $( function() {
+
+        $(".image_article").fileinput({
+            'showUpload': false
+        });
+
         $("#category_id").on("change", function() {
             var id = $("#category_id").val();
             if (id) {

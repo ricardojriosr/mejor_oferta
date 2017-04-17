@@ -10,7 +10,8 @@
         "zizaco/entrust": "^1.7",
         "cocur/slugify": "^2.5",
         "laravelcollective/html": "~5.0",
-        "maximebf/debugbar": ">=1.0.0"
+        "maximebf/debugbar": ">=1.0.0",
+        "kartik-v/bootstrap-fileinput": "@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
