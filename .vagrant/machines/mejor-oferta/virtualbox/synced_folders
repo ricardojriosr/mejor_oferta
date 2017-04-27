@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/Code/mejor-oferta":{"type":null,"mount_options":["uid=1000","gid=1000"],"guestpath":"/home/vagrant/Code/mejor-oferta","hostpath":"/var/www/html/mejor_oferta","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/var/www/html/mejor_oferta","disabled":false,"__vagrantfile":true}}}
