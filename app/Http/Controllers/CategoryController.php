@@ -41,7 +41,7 @@ class CategoryController extends Controller
         $response = $request->all();
         $category = new Category($response);
         $slugify = new Slugify();
-        $category->slug = $slugify->slugify($response['name'], '_'); 
+        $category->slug = $slugify->slugify($response['name'], '_');
         $category->save();
         return redirect()->route('categories.index');
     }
@@ -83,7 +83,7 @@ class CategoryController extends Controller
         $category = Category::Find($id);
         $category->fill($response);
         $slugify = new Slugify();
-        $category->slug = $slugify->slugify($response['name'], '_'); 
+        $category->slug = $slugify->slugify($response['name'], '_');
         $category->save();
         return redirect()->route('categories.index');
     }

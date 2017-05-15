@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Cocur\Slugify\Slugify;
 use App\Category;
 use App\Subcategory;
 use App\Article;
@@ -40,7 +41,34 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $article = new Article($request->all());
+        $response = $request->all();
+        $slugify = new Slugify();
+        $article->slug = $slugify->slugify($response['name'], '_');
+        $article->user_id = \Auth::user()->id;
+        $article->save();
+
+        //Manipulacion de imagenes
+        $i = 0;
+        $files = $request->file('image');
+        foreach($files as $file)
+        {
+            $name = 'article_' . time() . '_' . $i . '.' . $file->getClientOriginalName();
+            $path = public_path() . '/img/articles/';
+            $file->move($path, $name);
+            $image = new ImageArticle();
+            $image->url_image = $name;
+            $image->default = $i;
+            $image->name = $response['name'] . "-" . $i;
+            if ($i == 0)
+            {
+                $image->default = 1;
+            }
+            $image->article()->associate($article);
+            $image->save();
+            $i++;
+        }
+        return redirect()->route('articles.index');
     }
 
     /**

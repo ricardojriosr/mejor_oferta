@@ -20,7 +20,7 @@ class AddSlugToTables extends Migration
             $table->string('slug')->unique();
         });
         Schema::table('article', function($table) {
-            $table->string('slug')->unique();
+            $table->dropColumn('slug')->unique();
         });
     }
 
