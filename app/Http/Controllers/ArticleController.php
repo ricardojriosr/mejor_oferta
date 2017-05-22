@@ -90,7 +90,11 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::Find($id);
+        $images = $article->images();
+        dd($images);
+        $categories = Category::orderBy('name','ASC')->pluck('name','id');
+        return view('backend.articles.edit', ['categories' => $categories, 'article' => $article, 'images' => $images]);
     }
 
     /**

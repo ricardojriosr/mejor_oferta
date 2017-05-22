@@ -18,4 +18,9 @@ class Article extends Model
     {
         return $this->belongsTo('App\Subcategory');
     }
+
+    public function images()
+    {
+        return $this->hasMany('App\ImageArticle');
+    }
 }
