@@ -13,16 +13,36 @@
                     <br>
                     {!! Form::model($article, array('route' => array('articles.update', $article->id), 'method' => 'PUT')) !!}
 
+                    <div class="alert alert-info fade in alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                        <strong>Info:</strong> Check the image that would appear as profile photo on your article.<br/>
+                        If you upload new images, the images uploaded before would be deleted.
+                    </br/>
+                    </div>
+                    <div class="clearfix"></div>
                     <div class="form-group">
-                        <div class="alert alert-info fade in alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-                            <strong>Info:</strong> The first image here would appear as profile photo on your article.
-                        </div>
-                        {{ dd($images) }}
                         @foreach ($images as $key => $value)
-                            {{ $value }}
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                <input type="checkbox"
+                                value="{{ $value->article_images_id }}"
+                                name="principal_image"
+                                id="principal_image{{ $value->article_images_id }}"
+                                class="principal_image"
+                                @if ($value->default == 1)
+                                checked
+                                @endif
+                                />
+                                <strong>Principal Image?</strong>
+                                <img class="img-responsive"
+                                src="/img/articles/{{ $value->url_image }}"
+                                data-article_id="{{ $value->article_id }}" />
+                                <br />
+                            </div>
                         @endforeach
 
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
                         {!! Form::label('image','Article Images')!!}
                         {!! Form::file('image[]',['multiple' => 'multiple','class' => 'image_article']) !!}
                     </div>
@@ -62,7 +82,7 @@
                     <div class="form-group">
                         {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     </div>
-
+                    <input type="hidden" name="default" id="default" />
                     {{ Form::close() }}
                 </div>
             </div>
@@ -94,6 +114,17 @@
                 .end()
                 .append('<option value="" selected></option>');
             }
+        });
+        var ThisIsChecked;
+        $(".principal_image").each(function() {
+            $(this).on("click", function() {
+                if ($(this).is(':checked')) {
+                    ThisIsChecked = $("#" + $(this).attr('id'));
+                    $(".principal_image").prop("checked", false);
+                    ThisIsChecked.prop("checked", true);
+                    $("#default").val(ThisIsChecked.val());
+                }
+            });
         });
 
         get_subactegories('<?php echo $article->category_id; ?>');

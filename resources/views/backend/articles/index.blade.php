@@ -11,12 +11,35 @@
                     <a href="{{ Route('articles.create') }}" class="btn btn-default">New Article</a>
                     <br>
                     <br>
-                    <ul class="list-group">
+
                         @foreach($articles as $article)
-                            <li class="list-group-item"><a href="{{ Route('articles.show',$article->id) }}" class="btn btn-default">{{ $article->id }}</a>   {{ $article->name }} <span class="pull-right"><a href="{{ Route('articles.edit', $article->id ) }}" class="btn btn-success">Edit</a>
-                    <a href="{{ Route('articles.delete', $article->id ) }}" class="btn btn-danger delete-button">Delete</a></span></li>
+                            <div class="row-fluid" style="border: 1px solid #ddd; padding: 15px; border-radius:10px;">
+                                <div clas="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                    <a href="{{ Route('articles.show',$article->id) }}" class="btn btn-default">{{ $article->id }}</a>
+                                    <br /><br />
+                                </div>
+                                <div clas="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                @foreach ($article->images as $img)
+                                    @if ($img->default == 1)
+                                        <img class="img-responsive" src="/img/articles/{{ $img->url_image }}" alt="Article {{ $img->article_images_id }}" />
+                                        <br />
+                                    @endif
+                                @endforeach
+                                </div>
+                                <div clas="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                {{ $article->name }}
+                                </div>
+                                <div clas="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                <span class="pull-right"><a href="{{ Route('articles.edit', $article->id ) }}"
+                                    class="btn btn-success">Edit</a>
+                                    <a href="{{ Route('articles.delete', $article->id ) }}"
+                                        class="btn btn-danger delete-button">Delete</a>
+                                </span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
                         @endforeach
-                    </ul>
+
                     <div class="text-center">
                         {!! $articles->render() !!}
                     </div>

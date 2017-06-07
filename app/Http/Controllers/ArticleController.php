@@ -19,6 +19,11 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::orderBy('id','DESC')->paginate(8);
+        $articles->each(function($articles) {
+            $articles->category;
+            $articles->subcategory;
+            $articles->images;
+        });
         return view('backend.articles.index', ['articles' => $articles]);
     }
 
@@ -58,11 +63,11 @@ class ArticleController extends Controller
             $file->move($path, $name);
             $image = new ImageArticle();
             $image->url_image = $name;
-            $image->default = $i;
             $image->name = $response['name'] . "-" . $i;
-            if ($i == 0)
-            {
+            if ($i == 0) {
                 $image->default = 1;
+            } else {
+                $image->default = 0;
             }
             $image->article()->associate($article);
             $image->save();
@@ -91,8 +96,7 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = Article::Find($id);
-        $images = $article->images();
-        dd($images);
+        $images = ImageArticle::where('article_id','=',$article->id)->get();
         $categories = Category::orderBy('name','ASC')->pluck('name','id');
         return view('backend.articles.edit', ['categories' => $categories, 'article' => $article, 'images' => $images]);
     }
@@ -106,7 +110,18 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $article = Article::find($id);
+        $article->fill($request->all());
+        $article->save();
+        $images = ImageArticle::where('article_id','=',$id)->get();
+        foreach ($images as $image) {
+            $image->default = 0;
+            if ($image->article_images_id == $request->default) {
+                $image->default = 1;
+            }
+            $image->save();
+        }
+        return redirect()->route('articles.index');
     }
 
     /**
