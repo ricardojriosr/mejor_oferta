@@ -13,15 +13,7 @@ class AddSlugToTables extends Migration
      */
     public function up()
     {
-        Schema::table('category', function($table) {
-            $table->string('slug')->unique();
-        });
-        Schema::table('subcategory', function($table) {
-            $table->string('slug')->unique();
-        });
-        Schema::table('article', function($table) {
-            $table->dropColumn('slug')->unique();
-        });
+      
     }
 
     /**

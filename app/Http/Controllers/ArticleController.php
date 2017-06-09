@@ -84,7 +84,11 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        $article = Article::Find($id);
+        $article->category;
+        $article->subcategory;
+        $article->images;
+        return view('backend.articles.detail', ['article' => $article]);
     }
 
     /**

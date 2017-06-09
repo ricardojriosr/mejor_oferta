@@ -17,14 +17,18 @@ class CreateArticleTable extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->integer('subcategory_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('name')->nullable();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->integer('quantity');
+            $table->string('slug');
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('category')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('subcategory_id')->references('id')->on('subcategory')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
     }
