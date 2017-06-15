@@ -8,6 +8,8 @@ use App\Category;
 use App\Subcategory;
 use App\Article;
 use App\ImageArticle;
+use Storage;
+use File;
 
 class ArticleController extends Controller
 {
@@ -139,8 +141,8 @@ class ArticleController extends Controller
         $images = ImageArticle::where('article_id','=',$id)->get();
         $article = Article::find($id);
         foreach ($images as $image) {
-            $full_filename = "/img/articles/".$image->url_image;
-            unset($full_filename);
+            $path = public_path() . '/img/articles/';
+            File::delete($path.$image->url_image);
             $image->delete();
         }
         $article->delete();
