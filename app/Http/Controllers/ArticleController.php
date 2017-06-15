@@ -136,6 +136,14 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $images = ImageArticle::where('article_id','=',$id)->get();
+        $article = Article::find($id);
+        foreach ($images as $image) {
+            $full_filename = "/img/articles/".$image->url_image;
+            unset($full_filename);
+            $image->delete();
+        }
+        $article->delete();
+        return redirect()->route('articles.index');
     }
 }
