@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Subcategory</div>
                 <div class="panel-body">
-                    <a href="{{ Route('subcategories.create') }}" class="btn btn-default">New Subcategory</a> <a href="{{ Route('categories.index') }}" class="btn btn-default">List</a> 
+                    <a href="{{ Route('subcategories.create') }}" class="btn btn-default">New Subcategory</a> <a href="{{ Route('subcategories.index') }}" class="btn btn-default">List</a> 
                     <br>
                     <br>
                     <ul class="list-group">

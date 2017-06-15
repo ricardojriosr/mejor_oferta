@@ -102,7 +102,7 @@
             .find('option')
             .remove()
             .end()
-            .append('<option value="" selected></option>' + response);
+            .append('<option value="" selected>Select an Option...</option>' + response);
         });
     }
 </script>

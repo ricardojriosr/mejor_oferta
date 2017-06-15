@@ -43,7 +43,7 @@ class SubcategoryController extends Controller
         $response = $request->all();
         $subcategory = new Subcategory($response);
         $slugify = new Slugify();
-        $subcategory->slug = $slugify->slugify($response['name'], '_'); 
+        $subcategory->slug = $slugify->slugify($response['name'], '_');
         $subcategory->save();
         return redirect()->route('subcategories.index');
     }
@@ -86,7 +86,7 @@ class SubcategoryController extends Controller
         $subcategory = Subcategory::Find($id);
         $subcategory->fill($response);
         $slugify = new Slugify();
-        $subcategory->slug = $slugify->slugify($response['name'], '_'); 
+        $subcategory->slug = $slugify->slugify($response['name'], '_');
         $subcategory->save();
         return redirect()->route('subcategories.index');
     }
@@ -109,9 +109,9 @@ class SubcategoryController extends Controller
     public function fill_subcategories(Request $request, $id) {
         $response = "";
         if($request->ajax()){
-            $subcategory = Subcategory::where("category_id","=",$id)->first();
+            $subcategory = Subcategory::where("category_id","=",$id)->get();
             if (count($subcategory) > 0) {
-                foreach($subcategory->get() as $sb) {
+                foreach($subcategory as $sb) {
                     $response .= "<option value='".$sb->id."'>".$sb->name."</option>";
                 }
             }
