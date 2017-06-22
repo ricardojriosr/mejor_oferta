@@ -12,7 +12,7 @@
                     <br>
                     <br>
                     {!! Form::model($article, array('route' => array('articles.update', $article->id), 'method' => 'PUT')) !!}
-
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="alert alert-info fade in alert-dismissable">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
                         <strong>Info:</strong> Check the image that would appear as profile photo on your article.<br/>

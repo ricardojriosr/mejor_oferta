@@ -17,6 +17,7 @@
                         <li class="list-group-item"><strong>Display Name: </strong>  {{ $article->display_name }}</li>
                         <li class="list-group-item"><strong>Slug: </strong>  {{ $article->slug }}</li>
                         <li class="list-group-item"><strong>Description: </strong>  {{ $article->description }}</li>
+                        <li class="list-group-item"><strong>Quantity: </strong>  {{ $article->quantity }}</li>
                     </ul>
                     @foreach ($article->images as $value)
                     <div class="col-md-3">

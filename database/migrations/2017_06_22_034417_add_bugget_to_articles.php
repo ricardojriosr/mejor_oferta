@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDefaultToArticleImages extends Migration
+class AddBuggetToArticles extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddDefaultToArticleImages extends Migration
     public function up()
     {
         Schema::table('article_images', function($table) {
-            $table->integer('default');
+            $table->decimal('budget',10,2);
         });
     }
 
@@ -25,6 +25,6 @@ class AddDefaultToArticleImages extends Migration
      */
     public function down()
     {
-
+        //
     }
 }
