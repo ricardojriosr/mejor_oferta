@@ -8,4 +8,9 @@ class Auction extends Model
 {
     protected $table = 'auction';
     protected $fillable = ['article_id','user_id','description','price','warranty'];
+
+    public function article()
+    {
+        return $this->belongsTo('App\Article');
+    }
 }
