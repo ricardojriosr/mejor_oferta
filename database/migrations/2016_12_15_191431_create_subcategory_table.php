@@ -17,6 +17,7 @@ class CreateSubcategoryTable extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();

@@ -14,7 +14,7 @@ class AddDefaultToArticleImages extends Migration
     public function up()
     {
         Schema::table('article_images', function($table) {
-            $table->integer('default');
+            $table->integer('default')->default(0);;
         });
     }
 

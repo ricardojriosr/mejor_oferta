@@ -55,6 +55,11 @@
                     </div>
 
                     <div class="form-group">
+                        {!! Form::label('budget','Budget')!!}
+                        {!! Form::number('budget', null, ['class' => 'form-control', 'placeholder' => 'Budget Available', 'required']) !!}
+                    </div>
+
+                    <div class="form-group">
                         {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     </div>
 

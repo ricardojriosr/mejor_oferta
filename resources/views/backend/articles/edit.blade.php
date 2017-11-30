@@ -32,7 +32,7 @@
                                 checked
                                 @endif
                                 />
-                                <strong>Principal Image?</strong>
+                                <strong>Default Image?</strong>
                                 <img class="img-responsive"
                                 src="/img/articles/{{ $value->url_image }}"
                                 data-article_id="{{ $value->article_id }}" />

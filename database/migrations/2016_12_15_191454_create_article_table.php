@@ -22,7 +22,7 @@ class CreateArticleTable extends Migration
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->integer('quantity');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('category')
                 ->onUpdate('cascade')->onDelete('cascade');

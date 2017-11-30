@@ -13,8 +13,8 @@ class AddBuggetToArticles extends Migration
      */
     public function up()
     {
-        Schema::table('article_images', function($table) {
-            $table->decimal('budget',10,2);
+        Schema::table('article', function($table) {
+            $table->decimal('budget',10,2)->default(0.00);
         });
     }
 
