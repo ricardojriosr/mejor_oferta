@@ -13,13 +13,13 @@ class CreateConditionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('conditions', function (Blueprint $table) {
+        Schema::create('condition', function (Blueprint $table) {
             $table->increments('id');
             $table->string('condition');
             $table->timestamps();
         });
 
-        Schema::create('offers', function (Blueprint $table) {
+        Schema::create('offer', function (Blueprint $table) {
             $table->increments('id');
             $table->decimal('price',10,2)->default(0.00);
             $table->integer('condition_id')->unsigned();

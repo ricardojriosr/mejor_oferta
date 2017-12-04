@@ -23,4 +23,9 @@ class Article extends Model
     {
         return $this->hasMany('App\ImageArticle');
     }
+
+    public function offers()
+    {
+        return $this->hasMany('App\Offer');
+    }
 }

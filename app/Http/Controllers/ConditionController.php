@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
+use App\Condition;
 use Cocur\Slugify\Slugify;
-use App\Http\Requests\CategoryRequest;
 
-class CategoryController extends Controller
+class ConditionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id', 'DESC')->paginate(8);
-        return view('backend.categories.index', ['categories' => $categories]);
+        $conditions = Condition::orderBy('id', 'DESC')->paginate(8);
+        return view('backend.conditions.index', ['conditions' => $conditions]);
     }
 
     /**
@@ -27,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backend.categories.create');
+        return view('backend.conditions.create');
     }
 
     /**
@@ -36,14 +35,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
         $response = $request->all();
-        $category = new Category($response);
-        $slugify = new Slugify();
-        $category->slug = $slugify->slugify($response['name'], '_');
-        $category->save();
-        return redirect()->route('backend.categories.index');
+        $condition = new Condition($response);
+        $condition->save();
+        return redirect()->route('backend.conditions.index');
     }
 
     /**
@@ -54,8 +51,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::Find($id);
-        return view('backend.categories.detail', ['category' => $category]);
+        $condition = Condition::Find($id);
+        return view('backend.conditions.detail', ['condition' => $condition]);
     }
 
     /**
@@ -66,8 +63,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::Find($id);
-        return view('backend.categories.edit', ['category' => $category]);
+        $condition = Condition::Find($id);
+        return view('backend.conditions.detail', ['condition' => $condition]);
     }
 
     /**
@@ -77,15 +74,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $response = $request->all();
-        $category = Category::Find($id);
-        $category->fill($response);
-        $slugify = new Slugify();
-        $category->slug = $slugify->slugify($response['name'], '_');
-        $category->save();
-        return redirect()->route('backend.categories.index');
+        $condition = Condition::Find($id);
+        $condition->fill($response);
+        $condition->save();
+        return redirect()->route('backend.conditions.index');
     }
 
     /**
@@ -96,8 +91,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::Find($id);
-        $category->delete();
-        return redirect()->route('backend.categories.index');
+        $condition = Condition::Find($id);
+        $condition->delete();
+        return redirect()->route('backend.conditions.index');
     }
 }
