@@ -8,7 +8,7 @@ class Offer extends Model
 {
     //Offers in octicon-database
     protected $table = 'offer';
-    protected $fillable = ['price','condition_id','user_id','observations'];
+    protected $fillable = ['price','condition_id','user_id','observations','warranty'];
 
     public function article()
     {
