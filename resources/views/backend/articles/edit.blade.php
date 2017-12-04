@@ -80,6 +80,11 @@
                     </div>
 
                     <div class="form-group">
+                        {!! Form::label('budget','Budget')!!}
+                        {!! Form::number('budget', $article->budget, ['class' => 'form-control', 'placeholder' => 'Budget Available', 'required']) !!}
+                    </div>
+
+                    <div class="form-group">
                         {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     </div>
                     <input type="hidden" name="default" id="default" />

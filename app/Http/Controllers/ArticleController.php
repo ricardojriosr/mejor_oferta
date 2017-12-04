@@ -119,10 +119,10 @@ class ArticleController extends Controller
         $article = Article::find($id);
         $article->fill($request->all());
         $article->save();
-        $images = ImageArticle::where('article_id','=',$id)->get();
+        $images = ImageArticle::where('article_id','=',$id)->get();        
         foreach ($images as $image) {
             $image->default = 0;
-            if ($image->article_images_id == $request->default) {
+            if ($image->article_images_id == $request->principal_image) {
                 $image->default = 1;
             }
             $image->save();
