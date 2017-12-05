@@ -30,6 +30,11 @@ Route::get('articles/{id}/destroy', [
     'uses'  => 'ArticleController@destroy',
     'as'    => 'articles.delete'
 ]);
+Route::resource('conditions', 'ConditionController');
+Route::get('categories/{id}/destroy', [
+    'uses'  => 'ConditionController@destroy',
+    'as'    => 'conditions.delete'
+]);
 
 //Auth Routes
 Auth::routes();
@@ -42,4 +47,3 @@ Route::get('/subcategories/ajax/{id}',[
     'uses'  => 'SubcategoryController@fill_subcategories',
     'as'    => 'subcategory.ajax'
 ]);
-

@@ -80,7 +80,7 @@ class ConditionController extends Controller
         $condition = Condition::Find($id);
         $condition->fill($response);
         $condition->save();
-        return redirect()->route('backend.conditions.index');
+        return redirect()->route('conditions.index');
     }
 
     /**
@@ -93,6 +93,6 @@ class ConditionController extends Controller
     {
         $condition = Condition::Find($id);
         $condition->delete();
-        return redirect()->route('backend.conditions.index');
+        return redirect()->route('conditions.index');
     }
 }
