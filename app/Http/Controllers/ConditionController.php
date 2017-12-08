@@ -40,7 +40,7 @@ class ConditionController extends Controller
         $response = $request->all();
         $condition = new Condition($response);
         $condition->save();
-        return redirect()->route('backend.conditions.index');
+        return redirect()->route('conditions.index');
     }
 
     /**
@@ -64,7 +64,7 @@ class ConditionController extends Controller
     public function edit($id)
     {
         $condition = Condition::Find($id);
-        return view('backend.conditions.detail', ['condition' => $condition]);
+        return view('backend.conditions.edit', ['condition' => $condition]);
     }
 
     /**

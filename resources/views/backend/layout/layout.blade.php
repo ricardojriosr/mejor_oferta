@@ -56,6 +56,7 @@
                             <li><a href="{{ Route('categories.index') }}">Categories</a></li>
                             <li><a href="{{ Route('subcategories.index') }}">Subcategories</a></li>
                             <li><a href="{{ Route('articles.index')}}">Articles</a></li>
+                            <li><a href="{{ Route('conditions.index')}}">Conditions</a></li>
                         @endif
                     </ul>
 
