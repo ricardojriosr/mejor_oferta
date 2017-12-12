@@ -35,6 +35,11 @@ Route::get('categories/{id}/destroy', [
     'uses'  => 'ConditionController@destroy',
     'as'    => 'conditions.delete'
 ]);
+Route::resource('offers', 'OfferController');
+Route::get('offers/{id}/destroy', [
+    'uses'  => 'OfferController@destroy',
+    'as'    => 'offers.delete'
+]);
 
 //Auth Routes
 Auth::routes();

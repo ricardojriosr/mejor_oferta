@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Condition;
+use App\Offer;
+use Cocur\Slugify\Slugify;
 
 class OfferController extends Controller
 {
@@ -13,7 +16,11 @@ class OfferController extends Controller
      */
     public function index()
     {
-        //
+        $offers = Offer::orderBy('id', 'DESC')->paginate(8);
+        $offers->each(function($offers) {
+            $offers->condition;
+        });
+        return view('backend.offers.index', ['offers' => $offers]);
     }
 
     /**
@@ -23,7 +30,8 @@ class OfferController extends Controller
      */
     public function create()
     {
-        //
+        $conditions = Condition::orderBy('condition','ASC')->pluck('condition','id');
+        return view('backend.offers.create', ['conditions' => $conditions]);
     }
 
     /**
@@ -34,7 +42,10 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = $request->all();
+        $offer = new Offer($response);
+        $offer->save();
+        return redirect()->route('offer.index');
     }
 
     /**
@@ -45,7 +56,8 @@ class OfferController extends Controller
      */
     public function show($id)
     {
-        //
+        $offer = Offer::Find($id);
+        return view('backend.offers.detail', ['offer' => $offer]);
     }
 
     /**
@@ -56,7 +68,9 @@ class OfferController extends Controller
      */
     public function edit($id)
     {
-        //
+        $conditions = Condition::orderBy('condition','ASC')->pluck('condition','id');
+        $offer = Offer::Find($id);
+        return view('backend.offers.detail', ['offer' => $offer, 'conditions' => $conditions]);
     }
 
     /**
@@ -68,7 +82,11 @@ class OfferController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $response = $request->all();
+        $offer = Offer::Find($id);
+        $offer->fill($response);
+        $offer->save();
+        return redirect()->route('offers.index');
     }
 
     /**
