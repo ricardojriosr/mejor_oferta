@@ -31,7 +31,7 @@ Route::get('articles/{id}/destroy', [
     'as'    => 'articles.delete'
 ]);
 Route::resource('conditions', 'ConditionController');
-Route::get('categories/{id}/destroy', [
+Route::get('conditions/{id}/destroy', [
     'uses'  => 'ConditionController@destroy',
     'as'    => 'conditions.delete'
 ]);

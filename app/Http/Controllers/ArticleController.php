@@ -118,8 +118,9 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
         $article->fill($request->all());
+        $article->user_id = \Auth::user()->id;
         $article->save();
-        $images = ImageArticle::where('article_id','=',$id)->get();        
+        $images = ImageArticle::where('article_id','=',$id)->get();
         foreach ($images as $image) {
             $image->default = 0;
             if ($image->article_images_id == $request->principal_image) {

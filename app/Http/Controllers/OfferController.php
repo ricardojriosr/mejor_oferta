@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Article;
 use App\Condition;
 use App\Offer;
 use Cocur\Slugify\Slugify;
@@ -19,6 +20,7 @@ class OfferController extends Controller
         $offers = Offer::orderBy('id', 'DESC')->paginate(8);
         $offers->each(function($offers) {
             $offers->condition;
+            $offers->article;
         });
         return view('backend.offers.index', ['offers' => $offers]);
     }
@@ -31,7 +33,8 @@ class OfferController extends Controller
     public function create()
     {
         $conditions = Condition::orderBy('condition','ASC')->pluck('condition','id');
-        return view('backend.offers.create', ['conditions' => $conditions]);
+        $articles = Article::orderBy('name','ASC')->pluck('name','id');
+        return view('backend.offers.create', ['conditions' => $conditions, 'articles' => $articles]);
     }
 
     /**
@@ -44,6 +47,7 @@ class OfferController extends Controller
     {
         $response = $request->all();
         $offer = new Offer($response);
+        $offer->user_id = \Auth::user()->id;
         $offer->save();
         return redirect()->route('offer.index');
     }
@@ -69,6 +73,7 @@ class OfferController extends Controller
     public function edit($id)
     {
         $conditions = Condition::orderBy('condition','ASC')->pluck('condition','id');
+        $articles = Article::orderBy('name','ASC')->pluck('name','id');
         $offer = Offer::Find($id);
         return view('backend.offers.detail', ['offer' => $offer, 'conditions' => $conditions]);
     }
@@ -85,6 +90,7 @@ class OfferController extends Controller
         $response = $request->all();
         $offer = Offer::Find($id);
         $offer->fill($response);
+        $offer->user_id = \Auth::user()->id;
         $offer->save();
         return redirect()->route('offers.index');
     }

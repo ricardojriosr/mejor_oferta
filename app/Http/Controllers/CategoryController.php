@@ -43,7 +43,7 @@ class CategoryController extends Controller
         $slugify = new Slugify();
         $category->slug = $slugify->slugify($response['name'], '_');
         $category->save();
-        return redirect()->route('backend.categories.index');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -85,7 +85,7 @@ class CategoryController extends Controller
         $slugify = new Slugify();
         $category->slug = $slugify->slugify($response['name'], '_');
         $category->save();
-        return redirect()->route('backend.categories.index');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -98,6 +98,6 @@ class CategoryController extends Controller
     {
         $category = Category::Find($id);
         $category->delete();
-        return redirect()->route('backend.categories.index');
+        return redirect()->route('categories.index');
     }
 }
