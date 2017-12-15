@@ -49,7 +49,7 @@ class OfferController extends Controller
         $offer = new Offer($response);
         $offer->user_id = \Auth::user()->id;
         $offer->save();
-        return redirect()->route('offer.index');
+        return redirect()->route('offers.index');
     }
 
     /**
@@ -103,6 +103,8 @@ class OfferController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $offer = Offer::Find($id);
+        $offer->delete();
+        return redirect()->route('offers.index');
     }
 }

@@ -11,32 +11,12 @@
                     <a href="{{ Route('offers.create') }}" class="btn btn-default">New Offer</a>
                     <br>
                     <br>
-
-                        @foreach($offers as $offer)
-                            <div class="row-fluid" style="border: 1px solid #ddd; padding: 15px; border-radius:10px;">
-                                <div clas="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                                    <a href="{{ Route('offers.show',$offers->id) }}" class="btn btn-default">{{ $offers->id }}</a>
-                                    <br /><br />
-                                </div>
-                                <div clas="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                                @foreach ($offer->condition as $condition)
-                                    {{ $conditon->condition }}
-                                @endforeach
-                                </div>
-                                <div clas="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                                {{ $offer->name }}
-                                </div>
-                                <div clas="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                                <span class="pull-right"><a href="{{ Route('offes.edit', $offer->id ) }}"
-                                    class="btn btn-success">Edit</a>
-                                    <a href="{{ Route('offers.delete', $offer->id ) }}"
-                                        class="btn btn-danger delete-button">Delete</a>
-                                </span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        @endforeach
-
+                    <ul class="list-group">
+                          @foreach($offers as $offer)
+                            <li class="list-group-item"><a href="{{ Route('offers.show',$offer->id) }}" class="btn btn-default">{{ $offer->id }}</a>   {{ $offer->article->name }} | {{ $offer->condition->condition }} | {{ $offer->price }} <span class="pull-right"><a href="{{ Route('offers.edit', $offer->id ) }}" class="btn btn-success">Edit</a>
+                    <a href="{{ Route('offers.delete', $offer->id ) }}" class="btn btn-danger delete-button">Delete</a></span></li>
+                          @endforeach
+                    </ul>
                     <div class="text-center">
                         {!! $offers->render() !!}
                     </div>
