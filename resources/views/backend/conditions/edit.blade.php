@@ -15,7 +15,7 @@
 
                     <div class="form-group">
                         {!! Form::label('condition','Condition Name')!!}
-                        {!! Form::text('condition', null, ['class' => 'form-control', 'placeholder' => 'Condition Name', 'required']) !!}
+                        {!! Form::text('condition', $condition->condition, ['class' => 'form-control', 'placeholder' => 'Condition Name', 'required']) !!}
                     </div>
 
                     <div class="form-group">

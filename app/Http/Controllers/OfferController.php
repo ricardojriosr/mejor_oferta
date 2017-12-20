@@ -75,7 +75,9 @@ class OfferController extends Controller
         $conditions = Condition::orderBy('condition','ASC')->pluck('condition','id');
         $articles = Article::orderBy('name','ASC')->pluck('name','id');
         $offer = Offer::Find($id);
-        return view('backend.offers.detail', ['offer' => $offer, 'conditions' => $conditions]);
+        $offer->condition;
+        $offer->article;
+        return view('backend.offers.edit', ['offer' => $offer, 'conditions' => $conditions, 'articles' => $articles]);
     }
 
     /**
@@ -89,8 +91,7 @@ class OfferController extends Controller
     {
         $response = $request->all();
         $offer = Offer::Find($id);
-        $offer->fill($response);
-        $offer->user_id = \Auth::user()->id;
+        $offer->fill($response);        
         $offer->save();
         return redirect()->route('offers.index');
     }
