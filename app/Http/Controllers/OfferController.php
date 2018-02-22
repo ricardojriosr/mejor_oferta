@@ -22,7 +22,8 @@ class OfferController extends Controller
             $offers->condition;
             $offers->article;
         });
-        return view('backend.offers.index', ['offers' => $offers]);
+        $articles = Article::orderBy('name','ASC')->pluck('name','id');
+        return view('backend.offers.index', ['offers' => $offers, 'articles' => $articles]);
     }
 
     /**
@@ -91,7 +92,7 @@ class OfferController extends Controller
     {
         $response = $request->all();
         $offer = Offer::Find($id);
-        $offer->fill($response);        
+        $offer->fill($response);
         $offer->save();
         return redirect()->route('offers.index');
     }
