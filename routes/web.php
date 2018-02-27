@@ -24,6 +24,10 @@ Route::get('/subcategories/ajax/{id}',[
     'uses'  => 'SubcategoryController@fill_subcategories',
     'as'    => 'subcategory.ajax'
 ]);
+Route::get('offers/search/{id}', [
+    'uses'  => 'OfferController@search',
+    'as'    => 'offers.search'
+]);
 
 Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {
     Route::resource('categories', 'CategoryController');

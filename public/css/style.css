@@ -1,0 +1,11 @@
+.articles-listing {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+.errors_list {
+    color: red;
+    border: 2px solid red;
+    padding: 3px;
+}

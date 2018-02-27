@@ -12,9 +12,9 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link href="/css/fileinput.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/fileinput.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
-
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -106,7 +106,6 @@
     <script>
     $(function() {
         $("body").on("click", ".delete-button", function() {
-            console.log('FLAG 1');
             var r = confirm("Are You Sure to Delete This Record?");
             return r;
         });

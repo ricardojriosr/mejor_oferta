@@ -12,12 +12,12 @@
                     <br>
                     <br>
 
-                        <form method="get">
+
                             <div class="form-group col-md-12">
                                 {!! Form::label('article_id','Article')!!}
                                 {!! Form::select('article_id', $articles, null, ['class' => 'form-control select-category','placeholder' => 'Select an option...']) !!}
                             </div>
-                        </form>
+
 
                     <br>
                     <br>
@@ -38,5 +38,28 @@
     </div>
 </div>
 
+
+@endsection
+
+@section('js')
+
+<script>
+
+  $(function() {
+
+        $("#article_id").on("change", function() {
+            if ($("#article_id").val()) {
+              var url = window.location.href.split('?');
+              separator = (url[0].indexOf("?")===-1)?"?":"&",
+              newParam = separator + "id=" + $("#article_id").val();
+              newUrl = url[0].replace(newParam,"");
+              newUrl += newParam;
+              window.location.href = newUrl;
+            }
+        });
+
+  });
+
+</script>
 
 @endsection

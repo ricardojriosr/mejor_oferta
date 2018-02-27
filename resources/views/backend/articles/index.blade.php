@@ -13,7 +13,8 @@
                     <br>
 
                         @foreach($articles as $article)
-                            <div class="row-fluid" style="border: 1px solid #ddd; padding: 15px; border-radius:10px;">
+
+                            <div class="col-md-12 articles-listing" >
                                 <div clas="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                                     <a href="{{ Route('articles.show',$article->id) }}" class="btn btn-default">{{ $article->id }}</a>
                                     <br /><br />
@@ -37,7 +38,8 @@
                                 </span>
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
+
+                        <div class="clearfix"></div>
                         @endforeach
 
                     <div class="text-center">

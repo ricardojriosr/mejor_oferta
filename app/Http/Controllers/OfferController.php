@@ -17,12 +17,15 @@ class OfferController extends Controller
      */
     public function index()
     {
+        $articles = Article::orderBy('name','ASC')->pluck('name','id');
         $offers = Offer::orderBy('id', 'DESC')->paginate(8);
+        if (isset($_GET['id'])) {
+            $offers = Offer::orderBy('id', 'DESC')->where('article_id','=',$_GET['id'])->paginate(8);
+        }
         $offers->each(function($offers) {
             $offers->condition;
             $offers->article;
         });
-        $articles = Article::orderBy('name','ASC')->pluck('name','id');
         return view('backend.offers.index', ['offers' => $offers, 'articles' => $articles]);
     }
 
@@ -108,5 +111,9 @@ class OfferController extends Controller
         $offer = Offer::Find($id);
         $offer->delete();
         return redirect()->route('offers.index');
+    }
+
+    public function search($id) {
+        echo $id; exit();
     }
 }
