@@ -17,12 +17,18 @@ class OfferController extends Controller
      */
     public function index()
     {
+        $articles = Article::orderBy('name','ASC')->pluck('name','id');
         $offers = Offer::orderBy('id', 'DESC')->paginate(8);
+        $selectedArticle = null;
+        if (isset($_COOKIE['selectedArticleOffer'])) {
+            $offers = Offer::orderBy('id', 'DESC')->where('article_id','=',$_COOKIE['selectedArticleOffer'])->paginate(8);
+            $selectedArticle = $_COOKIE['selectedArticleOffer'];
+        }
         $offers->each(function($offers) {
             $offers->condition;
             $offers->article;
         });
-        return view('backend.offers.index', ['offers' => $offers]);
+        return view('backend.offers.index', ['offers' => $offers, 'articles' => $articles, 'selectedArticle' => $selectedArticle]);
     }
 
     /**
@@ -91,7 +97,7 @@ class OfferController extends Controller
     {
         $response = $request->all();
         $offer = Offer::Find($id);
-        $offer->fill($response);        
+        $offer->fill($response);
         $offer->save();
         return redirect()->route('offers.index');
     }
@@ -107,5 +113,9 @@ class OfferController extends Controller
         $offer = Offer::Find($id);
         $offer->delete();
         return redirect()->route('offers.index');
+    }
+
+    public function search($id) {
+        echo $id; exit();
     }
 }
