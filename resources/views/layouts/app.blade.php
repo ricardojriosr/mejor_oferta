@@ -15,12 +15,7 @@
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/fileinput.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
-    <!-- Scripts -->
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
+
 </head>
 <body>
     <div id="app">
@@ -50,7 +45,7 @@
                             <li><a href="{{ Route('subcategories.index') }}">Subcategories</a></li>
                             <li><a href="{{ Route('articles.index')}}">Articles</a></li>
                             <li><a href="{{ Route('conditions.index')}}">Conditions</a></li>
-                            <li><a href="{{ Route('offers.index')}}">Offers</a></li>
+                            <li><a href="{{ Route('offers.index')}}" onclick="delete_cookie('selectedArticleOffer')">Offers</a></li>
                         @endif
                     </ul>
 
@@ -101,15 +96,23 @@
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="/js/app.js"></script>
+    <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+    </script>
+
     <script src="/js/fileinput.min.js"></script>
     <script>
     $(function() {
         $("body").on("click", ".delete-button", function() {
             var r = confirm("Are You Sure to Delete This Record?");
-            return r;En
+            return r;
         });
     });
+    var delete_cookie = function(name) {
+        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    };
     </script>
     @yield('js')
 

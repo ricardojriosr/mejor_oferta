@@ -19,4 +19,8 @@ class Offer extends Model
     {
         return $this->belongsTo('App\Condition');
     }
+
+    public function scopeSearch($query, $name) {
+        $query->where('name','LIKE','%name%');
+    }
 }
