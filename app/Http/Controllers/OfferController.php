@@ -17,7 +17,10 @@ class OfferController extends Controller
      */
     public function index(Request $request)
     {
-        $articles = Article::Search($request->name)->orderBy('name','ASC')->pluck('name','id');
+        $articles = Article::orderBy('name','ASC')->pluck('name','id');
+        if (isset($request->name)) {
+            $articles = Article::Search($request->name)->orderBy('name','ASC')->pluck('name','id');
+        }
         $offers = Offer::orderBy('id', 'DESC')->paginate(8);
         $selectedArticle = null;
         if (isset($_COOKIE['selectedArticleOffer'])) {

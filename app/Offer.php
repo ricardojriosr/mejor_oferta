@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Searchable;
 
 class Offer extends Model
 {
@@ -21,6 +22,6 @@ class Offer extends Model
     }
 
     public function scopeSearch($query, $name) {
-        $query->where('name','LIKE','%name%');
+        return $query->where('name','LIKE','%name%');
     }
 }
