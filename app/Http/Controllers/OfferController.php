@@ -15,13 +15,12 @@ class OfferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $articles = Article::orderBy('name','ASC')->pluck('name','id');
-        if (isset($request->name)) {
-            $articles = Article::Search($request->name)->orderBy('name','ASC')->pluck('name','id');
-        }
         $offers = Offer::orderBy('id', 'DESC')->paginate(8);
+        if (isset($request->name)) {
+            $offers = Offer::Search($request->name)->orderBy('id', 'DESC')->paginate(8);
+        }
         $selectedArticle = null;
         if (isset($_COOKIE['selectedArticleOffer'])) {
             $offers = Offer::orderBy('id', 'DESC')->where('article_id','=',$_COOKIE['selectedArticleOffer'])->paginate(8);
@@ -39,8 +38,7 @@ class OfferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $conditions = Condition::orderBy('condition','ASC')->pluck('condition','id');
         $articles = Article::orderBy('name','ASC')->pluck('name','id');
         return view('backend.offers.create', ['conditions' => $conditions, 'articles' => $articles]);
@@ -52,8 +50,7 @@ class OfferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $response = $request->all();
         $offer = new Offer($response);
         $offer->user_id = \Auth::user()->id;
@@ -67,8 +64,7 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $offer = Offer::Find($id);
         return view('backend.offers.detail', ['offer' => $offer]);
     }
@@ -79,8 +75,7 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $conditions = Condition::orderBy('condition','ASC')->pluck('condition','id');
         $articles = Article::orderBy('name','ASC')->pluck('name','id');
         $offer = Offer::Find($id);
@@ -96,8 +91,7 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $response = $request->all();
         $offer = Offer::Find($id);
         $offer->fill($response);
@@ -111,8 +105,7 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $offer = Offer::Find($id);
         $offer->delete();
         return redirect()->route('offers.index');
