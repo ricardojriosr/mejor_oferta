@@ -49,7 +49,7 @@
 
                     <div class="form-group">
                         {!! Form::label('category_id','Category')!!}
-                        {!! Form::select('category_id', $categories, $article->category_id, ['class' => 'form-control select-category','required', 'placeholder' => 'Select an option...']) !!}
+                        {!! Form::select('category_id', $categories, $article->category_id, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...']) !!}
                     </div>
 
                     <div class="form-group">

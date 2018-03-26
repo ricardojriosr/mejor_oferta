@@ -15,12 +15,12 @@
 
                     <div class="form-group">
                         {!! Form::label('article_id','Article')!!}
-                        {!! Form::select('article_id', $articles, null, ['class' => 'form-control select-category','required', 'placeholder' => 'Select an option...']) !!}
+                        {!! Form::select('article_id', $articles, null, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...']) !!}
                     </div>
 
                     <div class="form-group">
                         {!! Form::label('condition_id','Condition')!!}
-                        {!! Form::select('condition_id', $conditions, null, ['class' => 'form-control select-category','required', 'placeholder' => 'Select an option...']) !!}
+                        {!! Form::select('condition_id', $conditions, null, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...']) !!}
                     </div>
 
                     <div class="form-group">

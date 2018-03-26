@@ -13,13 +13,8 @@
                     <br>
 
                             <div class="form-group col-md-12">
-                                {!! Form::open(['route' => 'offers.index', 'method' => 'GET', 'class' => 'navbar-form pull-right']) !!}
-                                {!! Form::text('name',null,['class' => 'form-control', 'placeholder' => 'Search..', 'aria-describebody' => 'search']) !!}
-                                {!! Form::close() !!}
-                            </div>
-                            <div class="form-group col-md-12">
                                 {!! Form::label('article_id','Article')!!}
-                                {!! Form::select('article_id', $articles, $selectedArticle, ['class' => 'form-control select-category','placeholder' => 'Select an option...']) !!}
+                                {!! Form::select('article_id', $articles, $selectedArticle, ['class' => 'custom-select custom-select-lg select-category','placeholder' => 'Select an option...']) !!}
                             </div>
 
 
