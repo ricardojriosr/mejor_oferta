@@ -29,7 +29,7 @@
 
                     <div class="form-group">
                         <label for="subcategory_id">Subcategory</label>
-                        <select name="subcategory_id" id="subcategory_id" class="form-control select-category" placeholder="Select an option..." data-placeholder="Select an option..." required>
+                        <select name="subcategory_id" id="subcategory_id" class="custom-select custom-select-lg select-category" placeholder="Select an option..." data-placeholder="Select an option..." required>
                         <option value="" selected>Select an option...</option>
                         </select>
                     </div>
@@ -98,17 +98,21 @@
     });
 
     function get_subactegories(id) {
+
+
         $.ajax({
             type: "GET",
             url: "/subcategories/ajax/"+id,
             data: { _token:$("input[name='_token']").val()  }
         }).done(function( response ) {
+            console.log(response);
             $('#subcategory_id')
             .find('option')
             .remove()
             .end()
             .append('<option value="" selected>Select an Option...</option>' + response);
         });
+
     }
 </script>
 

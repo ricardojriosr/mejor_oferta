@@ -24,10 +24,15 @@ Route::get('/subcategories/ajax/{id}',[
     'uses'  => 'SubcategoryController@fill_subcategories',
     'as'    => 'subcategory.ajax'
 ]);
+Route::get('/offers/ajax/{id}',[
+    'uses'  => 'OfferController@fill_offers',
+    'as'    => 'offers.ajax'
+]);
 Route::get('offers/search/{id}', [
     'uses'  => 'OfferController@search',
     'as'    => 'offers.search'
 ]);
+
 
 Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {
     Route::resource('categories', 'CategoryController');
@@ -54,6 +59,11 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {
     Route::get('offers/{id}/destroy', [
         'uses'  => 'OfferController@destroy',
         'as'    => 'offers.delete'
+    ]);
+    Route::resource('acceptedoffers', 'AcceptedofferController');
+    Route::get('acceptedoffers/{id}/destroy', [
+        'uses'  => 'AcceptedofferController@destroy',
+        'as'    => 'acceptedoffers.delete'
     ]);
 });
 //Auth Routes

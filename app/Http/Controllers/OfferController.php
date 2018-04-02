@@ -114,4 +114,22 @@ class OfferController extends Controller
     public function search($id) {
         echo $id; exit();
     }
+
+    public function children(Request $request) {
+    	 return Offer::where('article_id', $request->parent)->orderBy('price','DESC')->pluck('price', 'id');
+    }
+
+    /* AJAX FUNCTION */
+    public function fill_offers(Request $request, $id) {
+        $response = "";
+        if($request->ajax()){
+             $offer = Offer::where("article_id","=",$id)->get();
+            if (count( $offer) > 0) {
+                foreach( $offer as $sb) {
+                    $response .= "<option value='".$sb->id."'>".$sb->price."</option>";
+                }
+            }
+        }
+        return $response;
+    }
 }
