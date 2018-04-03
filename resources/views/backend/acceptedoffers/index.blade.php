@@ -11,9 +11,11 @@
                     <a href="{{ Route('acceptedoffers.create') }}" class="btn btn-default">New Accepted Offer</a>
                     <br>
                     <br>
+
                     <ul class="list-group">
                         @foreach($acceptedoffers as $acceptedoffer)
-                            <li class="list-group-item"><a href="{{ Route('acceptedoffers.show',$acceptedoffer->id) }}" class="btn btn-default">{{ $acceptedoffer->id }}</a>   {{ $acceptedoffer->name }} <span class="pull-right"><a href="{{ Route('acceptedoffers.edit', $acceptedoffer->id ) }}" class="btn btn-success">Edit</a>
+
+                            <li class="list-group-item"><a href="{{ Route('acceptedoffers.show',$acceptedoffer->id) }}" class="btn btn-default">{{ $acceptedoffer->id }}</a>   {{ $acceptedoffer->article->name }} | {{ $acceptedoffer->offer->price }}<span class="pull-right"><a href="{{ Route('acceptedoffers.edit', $acceptedoffer->id ) }}" class="btn btn-success">Edit</a>
                     <a href="{{ Route('acceptedoffers.delete', $acceptedoffer->id ) }}" class="btn btn-danger delete-button">Delete</a></span></li>
                         @endforeach
                     </ul>

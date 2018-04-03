@@ -22,4 +22,9 @@ class Offer extends Model {
     public function scopeSearch($query, $name) {
         return DB::select(DB::raw("SELECT * FROM offer A INNER JOIN article B ON A.article_id = B.id WHERE B.name LIKE '%:name%'"),['name',$name]);
     }
+
+    public function acceptedoffer()
+    {
+        return $this->hasMany('App\Acceptedoffer');
+    }
 }

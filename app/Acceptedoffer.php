@@ -9,7 +9,7 @@ class Acceptedoffer extends Model
     protected $table = 'accepted_offers';
     protected $fillable = ['article_id','offer_id'];
 
-    public function offers()
+    public function offer()
     {
         return $this->belongsTo('App\Offer');
     }

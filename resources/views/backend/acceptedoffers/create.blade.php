@@ -20,7 +20,7 @@
 
                     <div class="form-group">
                         {!! Form::label('offer_id','Offer')!!}
-                        {!! Form::select('offer_id', [], null, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...']) !!}
+                        {!! Form::select('offer_id', [], null, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...', 'data-live-search' => 'true']) !!}
                     </div>
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use App\Acceptedoffer;
 use App\Condition;
 use App\Offer;
 use Cocur\Slugify\Slugify;
@@ -123,7 +124,8 @@ class OfferController extends Controller
     public function fill_offers(Request $request, $id) {
         $response = "";
         if($request->ajax()){
-             $offer = Offer::where("article_id","=",$id)->get();
+            $offersExcept   = Acceptedoffer::select('offer_id')->get();
+            $offer = Offer::where("article_id","=",$id)->whereNotIn('id', $offersExcept)->get();
             if (count( $offer) > 0) {
                 foreach( $offer as $sb) {
                     $response .= "<option value='".$sb->id."'>".$sb->price."</option>";
