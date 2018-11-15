@@ -27,13 +27,13 @@ class CreateConditionsTable extends Migration
             $table->integer('article_id')->unsigned();
             $table->string('observations')->nullable();
             $table->string('warranty')->nullable();
-            $table->timestamps();
-            $table->foreign('condition_id')->references('id')->on('conditions')
-                ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('article_id')->references('id')->on('article')
                 ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('condition_id')->references('id')->on('condition')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
