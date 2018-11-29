@@ -128,9 +128,26 @@ class OfferController extends Controller
             $offer = Offer::where("article_id","=",$id)->whereNotIn('id', $offersExcept)->get();
             if (count( $offer) > 0) {
                 foreach( $offer as $sb) {
-                    $response .= "<option value='".$sb->id."'>".$sb->price."</option>";
+                    $response .= "<option value='".$sb->id."'>" . $sb->id . " | " . $sb->price . "</option>";
                 }
             }
+        }
+        return $response;
+    }
+
+    public function offer_details(Request $request, $id) {
+        $response = "";
+        if($request->ajax()){
+            $offerDetail = Offer::Find($id);
+            $offerDetail->condition;
+            $response .= "<strong>Offer Details</strong>";
+            $response .= "<ul>";
+            $response .= "<li><strong>ID</strong> " . $offerDetail->id . "</li>";
+            $response .= "<li><strong>Price</strong>  " . $offerDetail->price . "</li>";
+            $response .= "<li><strong>Condition</strong>  " . $offerDetail->condition->condition . "</li>";
+            $response .= "<li><strong>Observations</strong> " . $offerDetail->observations . "</li>";
+            $response .= "<li><strong>Warranty</strong> " . $offerDetail->warranty . "</li>";
+            $response .= "</ul>";
         }
         return $response;
     }

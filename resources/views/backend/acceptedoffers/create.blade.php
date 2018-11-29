@@ -23,6 +23,9 @@
                         {!! Form::select('offer_id', [], null, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...', 'data-live-search' => 'true']) !!}
                     </div>
 
+                    <div class="form-group" id="offer_detail">
+
+                    </div>
 
                     <div class="form-group">
                         {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
@@ -47,9 +50,9 @@
             var id = $("#article_id").val();
             if (id) {
                 get_offers(id);
-                console.log('FLAG 2');
+                //console.log('FLAG 2');
             } else {
-                console.log('FLAG 3');
+                //console.log('FLAG 3');
                 $('#offer_id')
                 .find('option')
                 .remove()
@@ -57,26 +60,44 @@
                 .append('<option value="" selected></option>');
             }
         });
+
+        $("#offer_id").on("change", function() {
+            var id = $("#offer_id").val();
+            if (id) {
+                show_details(id);
+            } else {
+                $("#offer_detail").html("");
+            }
+        });
     });
 
+    function show_details(id) {
+        $.ajax({
+            type: "GET",
+            url: "/offers/ajaxdetail/"+id,
+            data: { _token:$("input[name='_token']").val()  }
+        }).done(function( response ) {
+            $("#offer_detail").html(response);
+        });
+    }
+
     function get_offers(id) {
-
-
         $.ajax({
             type: "GET",
             url: "/offers/ajax/"+id,
             data: { _token:$("input[name='_token']").val()  }
         }).done(function( response ) {
-            console.log('FLAG 1');
-            console.log(response);
+            //console.log('FLAG 1');
+            //console.log(response);
             $('#offer_id')
             .find('option')
             .remove()
             .end()
             .append('<option value="" selected>Select an Option...</option>' + response);
         });
-
     }
+
+
 </script>
 
 @endsection

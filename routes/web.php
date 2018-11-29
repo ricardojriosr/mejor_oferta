@@ -28,6 +28,10 @@ Route::get('/offers/ajax/{id}',[
     'uses'  => 'OfferController@fill_offers',
     'as'    => 'offers.ajax'
 ]);
+Route::get('/offers/ajaxdetail/{id}',[
+    'uses'  => 'OfferController@offer_details',
+    'as'    => 'offers.ajaxdetail'
+]);
 Route::get('offers/search/{id}', [
     'uses'  => 'OfferController@search',
     'as'    => 'offers.search'

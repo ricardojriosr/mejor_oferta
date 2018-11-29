@@ -34,7 +34,7 @@ class AcceptedofferController extends Controller
         $articlesExcept = Acceptedoffer::select('article_id')->get();
         $offersExcept   = Acceptedoffer::select('offer_id')->get();
         $articles = Article::orderBy('name','ASC')->whereNotIn('id', $articlesExcept)->pluck('name','id');
-        $offers = Offer::orderBy('price','DESC')->whereNotIn('id', $offersExcept)->pluck('price','id');
+        $offers = Offer::orderBy('price','DESC')->whereNotIn('id', $offersExcept)->pluck('id','id');
         return view('backend.acceptedoffers.create', ['articles' => $articles, 'offers' => $offers]);
     }
 
@@ -60,7 +60,11 @@ class AcceptedofferController extends Controller
      */
     public function show($id)
     {
-        //
+        $acceptedoffer = Acceptedoffer::Find($id);
+        $acceptedoffer->article;
+        $acceptedoffer->offer;
+        $acceptedoffer->offer->condition;
+        return view('backend.acceptedoffers.detail', ['acceptedoffer' => $acceptedoffer]);
     }
 
     /**
@@ -94,6 +98,8 @@ class AcceptedofferController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $acceptedoffer = Acceptedoffer::Find($id);
+        $acceptedoffer->delete();
+        return redirect()->route('acceptedoffers.index');
     }
 }
