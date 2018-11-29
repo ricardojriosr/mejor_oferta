@@ -75,7 +75,9 @@ class AcceptedofferController extends Controller
      */
     public function edit($id)
     {
-        //
+        $articles = Article::orderBy('name','ASC')->pluck('name','id');
+        $offers = Offer::orderBy('price','DESC')->pluck('id','id');
+        return view('backend.acceptedoffers.edit', ['articles' => $articles, 'offers' => $offers]);
     }
 
     /**
