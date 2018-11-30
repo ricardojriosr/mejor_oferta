@@ -23,8 +23,18 @@
                     <div class="col-md-12 form-group">
                     <ul class="list-group">
                           @foreach($offers as $offer)
-                            <li class="list-group-item"><a href="{{ Route('offers.show',$offer->id) }}" class="btn btn-default">{{ $offer->id }}</a>   {{ $offer->article->name }} | {{ $offer->condition->condition }} | {{ $offer->price }} <span class="pull-right"><a href="{{ Route('offers.edit', $offer->id ) }}" class="btn btn-success">Edit</a>
-                    <a href="{{ Route('offers.delete', $offer->id ) }}" class="btn btn-danger delete-button">Delete</a></span></li>
+                          <li class="list-group-item">
+                            <a href="{{ Route('offers.show',$offer->id) }}" class="btn btn-default">{{ $offer->id }}</a>
+                             {{ $offer->article->name }} | {{ $offer->condition->condition }} | {{ $offer->price }} <div class="pull-right row">
+                           <?php if (count($offer->acceptedoffer) == 0) { ?>
+                             <form id="select_offer_div" style="display:none;">
+                                <input type="hidden" name="offer_id" value="{{ $offer->id }}">
+                                <input type="hidden" name="article_id" value="{{ $offer->article->id }}">
+                                <input type="submit" class="btn btn-warning" name="select_offer" value="Select this Offer">&nbsp;
+                             </form>
+                           <?php } ?>
+                            <a href="{{ Route('offers.edit', $offer->id ) }}" class="btn btn-success">Edit</a> &nbsp;
+                            <a href="{{ Route('offers.delete', $offer->id ) }}" class="btn btn-danger delete-button">Delete</a></div></li>
                           @endforeach
                     </ul>
                     <div class="text-center">
@@ -45,6 +55,10 @@
 <script>
 
   $(function() {
+
+        if (getCookie("selectedArticleOffer")) {
+            $("#select_offer_div").show();
+        }
 
         $("#article_id").on("change", function() {
             if ($("#article_id").val()) {

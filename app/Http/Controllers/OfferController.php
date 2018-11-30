@@ -30,6 +30,7 @@ class OfferController extends Controller
         $offers->each(function($offers) {
             $offers->condition;
             $offers->article;
+            $offers->acceptedoffer;
         });
         return view('backend.offers.index', ['offers' => $offers, 'articles' => $articles, 'selectedArticle' => $selectedArticle]);
     }
