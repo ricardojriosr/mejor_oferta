@@ -104,4 +104,24 @@ class AcceptedofferController extends Controller
         $acceptedoffer->delete();
         return redirect()->route('acceptedoffers.index');
     }
+
+    public function select_offer(Request $request) {
+        $findAcceptedoffer = Acceptedoffer::where('article_id',$request->article_id)->first();
+        //dd($findAcceptedoffer->id); exit();
+        if (isset($findAcceptedoffer->id) && ($findAcceptedoffer->id != 0)) {
+          //echo "FLAG 1"; exit();
+          $acceptedoffer = Acceptedoffer::Find($findAcceptedoffer->id);
+          $acceptedoffer->offer_id = $request->offer_id;
+          $acceptedoffer->save();
+        } else {
+          //echo "FLAG 2"; exit();
+          $newData = array(
+            'article_id' => $request->article_id,
+            'offer_id' => $request->offer_id,
+          );
+          $acceptedoffers = new Acceptedoffer($newData);
+          $acceptedoffers->save();
+        }
+        return redirect()->route('offers.index');
+    }
 }

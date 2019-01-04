@@ -33,7 +33,7 @@
                             <a href="{{ Route('offers.show',$offer->id) }}" class="btn btn-default">{{ $offer->id }}</a>
                              {{ $offer->article->name }} | {{ $offer->condition->condition }} | {{ $offer->price }} <div class="pull-right row">
                            <?php if (count($offer->acceptedoffer) == 0) { ?>
-                             {{ Form::open(['route' => 'categories.store', 'method' => 'POST', 'id' => 'select_offer_div']) }}
+                             {{ Form::open(['route' => 'acceptedoffers.select_offer', 'method' => 'POST', 'id' => 'select_offer_div']) }}
                                 <input type="hidden" name="offer_id" value="{{ $offer->id }}">
                                 <input type="hidden" name="article_id" value="{{ $offer->article->id }}">
                                 <input type="submit" class="btn btn-warning" name="select_offer" value="Select this Offer">&nbsp;

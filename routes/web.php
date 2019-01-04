@@ -69,6 +69,10 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {
         'uses'  => 'AcceptedofferController@destroy',
         'as'    => 'acceptedoffers.delete'
     ]);
+    Route::post('select_offer',[
+        'uses'  => 'AcceptedofferController@select_offer',
+        'as'    => 'acceptedoffers.select_offer'
+    ]);
 });
 //Auth Routes
 Auth::routes();
