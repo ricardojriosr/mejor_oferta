@@ -2,6 +2,12 @@
 
 @section('content')
 
+<style>
+#select_offer_div {
+  display: none;
+}
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -27,11 +33,11 @@
                             <a href="{{ Route('offers.show',$offer->id) }}" class="btn btn-default">{{ $offer->id }}</a>
                              {{ $offer->article->name }} | {{ $offer->condition->condition }} | {{ $offer->price }} <div class="pull-right row">
                            <?php if (count($offer->acceptedoffer) == 0) { ?>
-                             <form id="select_offer_div" style="display:none;">
+                             {{ Form::open(['route' => 'categories.store', 'method' => 'POST', 'id' => 'select_offer_div']) }}
                                 <input type="hidden" name="offer_id" value="{{ $offer->id }}">
                                 <input type="hidden" name="article_id" value="{{ $offer->article->id }}">
                                 <input type="submit" class="btn btn-warning" name="select_offer" value="Select this Offer">&nbsp;
-                             </form>
+                             {{ Form::close() }}
                            <?php } ?>
                             <a href="{{ Route('offers.edit', $offer->id ) }}" class="btn btn-success">Edit</a> &nbsp;
                             <a href="{{ Route('offers.delete', $offer->id ) }}" class="btn btn-danger delete-button">Delete</a></div></li>
