@@ -27,4 +27,9 @@ class Offer extends Model {
     {
         return $this->hasMany('App\Acceptedoffer');
     }
+
+    public function offerimage()
+    {
+        return $this->hasMany('App\Offerimage');
+    }
 }

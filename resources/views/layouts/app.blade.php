@@ -47,8 +47,6 @@
                         <li class="nav-item"><a href="{{ Route('offers.index')}}" onclick="delete_cookie('selectedArticleOffer')"
                             class="nav-link">Offers</a>
                         </li>
-                        <li class="nav-item"><a href="{{ Route('acceptedoffers.index')}}" class="nav-link">Accepted Offers</a>
-                        </li>
                     </ul>
                   </div>
                     <!-- Right Side Of Navbar -->
