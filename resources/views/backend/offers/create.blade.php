@@ -11,7 +11,16 @@
                     <a href="{{ Route('offers.index') }}" class="btn btn-default">List</a>
                     <br>
                     <br>
-                    {{ Form::open(['route' => 'offers.store', 'method' => 'POST']) }}
+                    {{ Form::open(['route' => 'offers.store', 'method' => 'POST', 'files' => true]) }}
+
+                    <div class="form-group">
+                        <div class="alert alert-info fade in alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                            <strong>Info:</strong> The first image here would appear as profile photo on your offer.
+                        </div>
+                        {!! Form::label('image','Offer Images')!!}
+                        {!! Form::file('image[]',['multiple' => 'multiple','class' => 'image_offer']) !!}
+                    </div>
 
                     <div class="form-group">
                         {!! Form::label('article_id','Article')!!}
@@ -49,5 +58,22 @@
     </div>
 </div>
 
+
+@endsection
+
+@section('js')
+
+<script>
+
+    $( function() {
+
+        $(".image_offer").fileinput({
+            'showUpload': false
+        });
+
+    });
+
+
+</script>
 
 @endsection

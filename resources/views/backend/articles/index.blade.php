@@ -22,7 +22,7 @@
                                 <div clas="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                                 @foreach ($article->images as $img)
                                     @if ($img->default == 1)
-                                        <img class="img-responsive" src="/img/articles/{{ $img->url_image }}" alt="Article {{ $img->article_images_id }}" />
+                                        <img class="img-responsive img-thumbnail" src="/img/articles/{{ $img->url_image }}" alt="Article {{ $img->article_images_id }}" />
                                         <br />
                                     @endif
                                 @endforeach
