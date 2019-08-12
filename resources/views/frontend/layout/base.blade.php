@@ -11,11 +11,12 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
   </head>
   <body>
+    @extends('frontend.layout.partials.menu')
+
     <div class="container">
-        <div class="row">
-            @yield('content')
-        </div>
+        @yield('content')
     </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
