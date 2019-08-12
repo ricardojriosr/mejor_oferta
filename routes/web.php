@@ -12,12 +12,10 @@
 */
 
 
-//Backend Routes
-Route::get('/', function () {
-    return view('home');
-});
-//Frontend Routes
-Route::get('/home', 'HomeController@index');
+//Front-end Routes
+Route::get('/', 'PublicController@index');
+Route::get('/home', 'PublicController@index');
+
 
 //Ajax Routes
 Route::get('/subcategories/ajax/{id}',[
@@ -39,6 +37,8 @@ Route::get('offers/search/{id}', [
 
 
 Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {
+    //Back-end Routes
+    Route::get('/', 'HomeController@index');
     Route::resource('categories', 'CategoryController');
     Route::get('categories/{id}/destroy', [
         'uses'  => 'CategoryController@destroy',
