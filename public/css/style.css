@@ -15,3 +15,6 @@
 .img-thumbnail {
     height: 100px !important;
 }
+#main-container {
+    margin-top: 60px;
+}
