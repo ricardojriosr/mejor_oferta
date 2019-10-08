@@ -20,13 +20,18 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        $articles = $this->getArticles();
+        return view('backend.articles.index', ['articles' => $articles]);
+    }
+
+    public static function getArticles() {
         $articles = Article::orderBy('id','DESC')->paginate(8);
         $articles->each(function($articles) {
             $articles->category;
             $articles->subcategory;
             $articles->images;
         });
-        return view('backend.articles.index', ['articles' => $articles]);
+        return $articles;
     }
 
     /**

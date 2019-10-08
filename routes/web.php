@@ -15,6 +15,8 @@
 //Front-end Routes
 Route::get('/', 'PublicController@index');
 Route::get('/home', 'PublicController@index');
+Route::get('/{category}', 'PublicController@category');
+Route::get('/article/{article_slug}', 'PublicController@showArticle');
 
 
 //Ajax Routes
