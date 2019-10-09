@@ -7,6 +7,7 @@ use App\Offer;
 use App\Offerimage;
 use App\Article;
 use App\Category;
+use App\Condition;
 use App\Http\Controllers\ArticleController;
 
 
@@ -38,9 +39,13 @@ class PublicController extends Controller
     {
         $categories = Category::orderBy('id', 'DESC')->get();
         $article = Article::where('slug', $article_slug)->firstOrFail();
+        $selectCategories = Category::orderBy('name','ASC')->pluck('name','id');
+        $conditions = Condition::orderBy('condition','ASC')->pluck('condition','id');
         return view('frontend.article.show', [
             'article' => $article,
             'categories' => $categories,
+            'selectCategories' => $selectCategories,
+            'conditions' => $conditions
         ]);
     }
 }
