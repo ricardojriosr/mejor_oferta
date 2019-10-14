@@ -54,13 +54,33 @@
   </div>
   @if (Auth::guest())
   @else
+  
   <div class="col-8 mx-auto">
     <div class="card">
         <div class="card-body">
           <h5 class="card-title">New Offer</h5>
           <p class="card-text">
-            {{ Form::open(['route' => 'offers.store', 'method' => 'POST', 'files' => true]) }}
-
+              <?php 
+              $selectedCondition  = null;
+              $selectedPrice      = null;
+              $selectedObs        = null;
+              $selectedWarr       = null;
+              $selectedOffer      = null;
+              $formMethod         = 'POST';
+              if ($existOffer) {
+                echo "Offer";
+                // echo "<pre>",print_r($countUserOffer->all()),"</pre>";
+                $selectedCondition  = $countUserOffer->condition_id;
+                $selectedPrice      = $countUserOffer->price;
+                $selectedObs        = $countUserOffer->observations;
+                $selectedWarr       = $countUserOffer->warranty;
+                $selectedOffer      = $countUserOffer->id;
+                $formMethod         = 'PUT';
+              } 
+              ?>
+            {{ Form::open(['route' => 'article.offer', 'method' => $formMethod, 'files' => true]) }}
+              <input type="hidden" name="article_id" id="article_id" value="<?php echo $article->id; ?>">
+              <input type="hidden" name="offer_id" id="offer_id" value="<?php echo $selectedOffer; ?>">
               <div class="form-group">
                   <div class="alert alert-info fade in alert-dismissable">
                       <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
@@ -70,36 +90,24 @@
                   {!! Form::file('image[]',['multiple' => 'multiple','class' => 'image_offer']) !!}
               </div>
 
-                <div class="form-group">
-                    {!! Form::label('category_id','Category')!!}
-                    {!! Form::select('category_id', $selectCategories, null, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...']) !!}
-                </div>
-
-                <div class="form-group">
-                  <label for="subcategory_id">Subcategory</label>
-                  <select name="subcategory_id" id="subcategory_id" class="custom-select custom-select-lg select-category" placeholder="Select an option..." data-placeholder="Select an option..." required>
-                  <option value="" selected>Select an option...</option>
-                  </select>
-              </div>
-
               <div class="form-group">
                   {!! Form::label('condition_id','Condition')!!}
-                  {!! Form::select('condition_id', $conditions, null, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...']) !!}
+                  {!! Form::select('condition_id', $conditions, $selectedCondition, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...']) !!}
               </div>
 
               <div class="form-group">
                   {!! Form::label('price','Price')!!}
-                  {!! Form::number('price', null, ['class' => 'form-control', 'placeholder' => 'Price Offer', 'required']) !!}
+                  {!! Form::number('price', $selectedPrice, ['class' => 'form-control', 'placeholder' => 'Price Offer', 'required']) !!}
               </div>
 
               <div class="form-group">
                   {!! Form::label('observations','Observation')!!}
-                  {!! Form::text('observations', null, ['class' => 'form-control', 'placeholder' => 'Observations', 'required']) !!}
+                  {!! Form::text('observations', $selectedObs, ['class' => 'form-control', 'placeholder' => 'Observations', 'required']) !!}
               </div>
 
               <div class="form-group">
                   {!! Form::label('warranty','Warranty')!!}
-                  {!! Form::text('warranty', null, ['class' => 'form-control', 'placeholder' => 'Warranty', 'required']) !!}
+                  {!! Form::text('warranty', $selectedWarr, ['class' => 'form-control', 'placeholder' => 'Warranty', 'required']) !!}
               </div>
 
               <div class="form-group">
@@ -132,39 +140,11 @@ if (1 == 2) {
         $(".image_offer").fileinput({
             'showUpload': false
         });
-
-        $("#category_id").on("change", function() {
-            var id = $("#category_id").val();
-            if (id) {
-                get_subactegories(id);
-            } else {
-                $('#subcategory_id')
-                .find('option')
-                .remove()
-                .end()
-                .append('<option value="" selected></option>');
-            }
-        });
+        
 
     });
 
-    function get_subactegories(id) {
-
-
-        $.ajax({
-            type: "GET",
-            url: "/subcategories/ajax/"+id,
-            data: { _token:$("input[name='_token']").val()  }
-        }).done(function( response ) {
-            console.log(response);
-            $('#subcategory_id')
-            .find('option')
-            .remove()
-            .end()
-            .append('<option value="" selected>Select an Option...</option>' + response);
-        });
-
-    }
+    
 </script>
 
 @endsection

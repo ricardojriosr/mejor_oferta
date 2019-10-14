@@ -37,16 +37,36 @@ class PublicController extends Controller
 
     public function showArticle($article_slug) 
     {
+        $existOffer = false;
+        $userId = 0;
+        $user = auth()->user();
+        $userId = $user->id;
         $categories = Category::orderBy('id', 'DESC')->get();
         $article = Article::where('slug', $article_slug)->firstOrFail();
         $selectCategories = Category::orderBy('name','ASC')->pluck('name','id');
         $conditions = Condition::orderBy('condition','ASC')->pluck('condition','id');
+        $countUserOffer = Offer::where('user_id',$userId)->where('article_id', $article->id)->first();
+        if ($countUserOffer) {
+            $existOffer = true;
+        }
         return view('frontend.article.show', [
-            'article' => $article,
-            'categories' => $categories,
-            'selectCategories' => $selectCategories,
-            'conditions' => $conditions
+            'article'           => $article,
+            'categories'        => $categories,
+            'selectCategories'  => $selectCategories,
+            'conditions'        => $conditions,
+            'userId'            => $userId,
+            'existOffer'        => $existOffer,
+            'countUserOffer'    => $countUserOffer
         ]);
+    }
+
+    public function newOffer(Request $request) 
+    {
+        $postOffer = $request->all();
+        $offer = new Offer($response);
+        $offer->user_id = \Auth::user()->id;
+        $offer->save();
+        exit();
     }
 }
 
