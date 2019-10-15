@@ -61,12 +61,15 @@
           <h5 class="card-title">New Offer</h5>
           <p class="card-text">
               <?php 
+              $disableFields      = false;
               $selectedCondition  = null;
               $selectedPrice      = null;
               $selectedObs        = null;
               $selectedWarr       = null;
               $selectedOffer      = null;
               $formMethod         = 'POST';
+              $showEditButton     = '';
+              $hiddenOfferField   = '';
               if ($existOffer) {
                 echo "Offer";
                 // echo "<pre>",print_r($countUserOffer->all()),"</pre>";
@@ -76,9 +79,12 @@
                 $selectedWarr       = $countUserOffer->warranty;
                 $selectedOffer      = $countUserOffer->id;
                 $formMethod         = 'PUT';
+                $disableFields      = true;
+                $hiddenOfferField   = '<input type="hidden" value="'.$offerId.'" id="offer_id" name="offer_id">';
+                $showEditButton     = '<div class="form-group"><button id="activateFields" class="btn btn-warning">Change Offer</button></div>';
               } 
               ?>
-            {{ Form::open(['route' => 'article.offer', 'method' => $formMethod, 'files' => true]) }}
+            {{ Form::open(['route' => 'article.offer', 'method' => 'POST', 'files' => true, 'id' => 'form-offer']) }}
               <input type="hidden" name="article_id" id="article_id" value="<?php echo $article->id; ?>">
               <input type="hidden" name="offer_id" id="offer_id" value="<?php echo $selectedOffer; ?>">
               <div class="form-group">
@@ -87,32 +93,34 @@
                       <strong>Info:</strong> The first image here would appear as profile photo on your offer.
                   </div>
                   {!! Form::label('image','Offer Images')!!}
-                  {!! Form::file('image[]',['multiple' => 'multiple','class' => 'image_offer']) !!}
+                  {!! Form::file('image[]',['multiple' => 'multiple','class' => 'image_offer', 'disabled' => $disableFields ]) !!}
               </div>
 
               <div class="form-group">
                   {!! Form::label('condition_id','Condition')!!}
-                  {!! Form::select('condition_id', $conditions, $selectedCondition, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...']) !!}
+                  {!! Form::select('condition_id', $conditions, $selectedCondition, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...', 'disabled' => $disableFields ]) !!}
               </div>
 
               <div class="form-group">
                   {!! Form::label('price','Price')!!}
-                  {!! Form::number('price', $selectedPrice, ['class' => 'form-control', 'placeholder' => 'Price Offer', 'required']) !!}
+                  {!! Form::number('price', $selectedPrice, ['class' => 'form-control', 'placeholder' => 'Price Offer', 'required', 'disabled' => $disableFields ]) !!}
               </div>
 
               <div class="form-group">
                   {!! Form::label('observations','Observation')!!}
-                  {!! Form::text('observations', $selectedObs, ['class' => 'form-control', 'placeholder' => 'Observations', 'required']) !!}
+                  {!! Form::text('observations', $selectedObs, ['class' => 'form-control', 'placeholder' => 'Observations', 'required', 'disabled' => $disableFields ]) !!}
               </div>
 
               <div class="form-group">
                   {!! Form::label('warranty','Warranty')!!}
-                  {!! Form::text('warranty', $selectedWarr, ['class' => 'form-control', 'placeholder' => 'Warranty', 'required']) !!}
+                  {!! Form::text('warranty', $selectedWarr, ['class' => 'form-control', 'placeholder' => 'Warranty', 'required', 'disabled' => $disableFields ]) !!}
               </div>
 
               <div class="form-group">
                   {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
               </div>
+
+              <?php echo $showEditButton; ?>
 
               {{ Form::close() }}
           </p>
@@ -135,14 +143,31 @@ if (1 == 2) {
 
 <script>
 
-    $( function() {
+  var editState = false;
+  $( function() {
 
-        $(".image_offer").fileinput({
-            'showUpload': false
+      $(".image_offer").fileinput({
+          'showUpload': false
+      });
+      
+      if ($("#activateFields")) {
+        $("#activateFields").on("click", function(e) {
+          if (editState) {
+            editState = false;
+            $("#form-offer input").prop('disabled', true);
+            $("#form-offer select").prop('disabled', true);
+            document.getElementById("activateFields").childNodes[0].nodeValue = "Change Offer";
+          } else {
+            editState = true;
+            $("#form-offer input").prop('disabled', false);
+            $("#form-offer select").prop('disabled', false);
+            document.getElementById("activateFields").childNodes[0].nodeValue = "Cancel";
+          }
+          e.preventDefault();
         });
-        
+      }
 
-    });
+  });
 
     
 </script>
