@@ -17,10 +17,10 @@ Route::get('/', 'PublicController@index');
 Route::get('/home', 'PublicController@index');
 Route::get('/{category}', 'PublicController@category');
 Route::get('/article/{article_slug}', 'PublicController@showArticle');
-Route::post('/article/offer',[
-    'uses'  => 'PublicController@newOffer',
-    'as'    => 'article.offer'
-]);
+Route::get('/articles/new','PublicController@newArticleForm');
+Route::post('/article/offer',['uses'  => 'PublicController@newOffer','as' => 'article.offer' ]);
+Route::post('/articles/new',['uses'  => 'PublicController@storeArticle','as' => 'article.storenew' ]);
+
 
 
 //Ajax Routes

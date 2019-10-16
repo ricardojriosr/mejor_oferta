@@ -9,7 +9,7 @@
 <?php } ?>
 <div class="row">
 <?php
-if (isset($articles)) {
+if ((isset($articles)) && (count($articles) > 0)) {
   
   foreach($articles as $article) {
     echo '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4  home-grid">';

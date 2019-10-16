@@ -71,8 +71,8 @@
               $showEditButton     = '';
               $hiddenOfferField   = '';
               if ($existOffer) {
-                echo "Offer";
-                // echo "<pre>",print_r($countUserOffer->all()),"</pre>";
+                // echo "Offer";
+                echo "<pre>",print_r($offerDetail->offerimage),"</pre>";
                 $selectedCondition  = $countUserOffer->condition_id;
                 $selectedPrice      = $countUserOffer->price;
                 $selectedObs        = $countUserOffer->observations;
