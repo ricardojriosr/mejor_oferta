@@ -55,7 +55,8 @@
   @if (Auth::guest())
   @else
   
-  <div class="col-8 mx-auto">
+  <div class="col-8 mx-auto mb-3">
+    <?php if (!$sameUserArticle) { ?>
     <div class="card">
         <div class="card-body">
           <h5 class="card-title">New Offer</h5>
@@ -72,7 +73,10 @@
               $hiddenOfferField   = '';
               if ($existOffer) {
                 // echo "Offer";
-                echo "<pre>",print_r($offerDetail->offerimage),"</pre>";
+                // echo "<pre>",print_r($offerDetail->offerimage),"</pre>";
+                foreach ($offerDetail->offerimage as $value) {
+                    echo '<img src="/img/offers/'.$value->url_image.'" class="img-fluid img-offer" />';
+                }
                 $selectedCondition  = $countUserOffer->condition_id;
                 $selectedPrice      = $countUserOffer->price;
                 $selectedObs        = $countUserOffer->observations;
@@ -87,6 +91,9 @@
             {{ Form::open(['route' => 'article.offer', 'method' => 'POST', 'files' => true, 'id' => 'form-offer']) }}
               <input type="hidden" name="article_id" id="article_id" value="<?php echo $article->id; ?>">
               <input type="hidden" name="offer_id" id="offer_id" value="<?php echo $selectedOffer; ?>">
+              <div class="form-group">
+                
+              </div>
               <div class="form-group">
                   <div class="alert alert-info fade in alert-dismissable">
                       <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
@@ -126,8 +133,19 @@
           </p>
         </div>
     </div>
+    <?php } ?>
     @endif
     
+  </div>
+  <div class="col-8 mx-auto mb-3">
+    <?php
+    // echo '<pre>',print_r($articleOffers),'</pre>';
+    foreach ($articleOffers as $offer) {
+    ?>
+        <?php echo '<pre>',print_r($offer),'</pre>'; ?>
+    <?php
+    }
+    ?>
   </div>
 </div>
 

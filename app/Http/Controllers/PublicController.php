@@ -64,19 +64,26 @@ class PublicController extends Controller
             $image->save();
             $i++;
         }
-        return redirect()->route('/article/'.$article->slug);
+        return redirect('article/'.$article->slug);
     }
 
     // OFFER FUNCTIONS
     public function category($categorySlug) 
     {
-        $categoryID = Category::where('slug', $categorySlug)->firstOrFail();
-        $articles = Article::where('category_id', $categoryID->id)->orderBy('id', 'DESC')->paginate(8);
+        $categoryID = Category::where('slug', $categorySlug)->first();
+        if (!$categoryID) {
+            $categoryFindID         = 0;
+            $categoryDisplayName    = '';
+        } else {
+            $categoryFindID         = $categoryID->id;
+            $categoryDisplayName    = $categoryID->display_name;
+        }
+        $articles = Article::where('category_id', $categoryFindID)->orderBy('id', 'DESC')->paginate(8);
         $categories = Category::orderBy('id', 'DESC')->get();
         return view('frontend.home', [
             'articles' => $articles, 
             'categories' => $categories,
-            'display_name' => $categoryID->display_name
+            'display_name' => $categoryDisplayName
         ]);
     }
 
@@ -92,6 +99,14 @@ class PublicController extends Controller
         $selectCategories   = Category::orderBy('name','ASC')->pluck('name','id');
         $conditions         = Condition::orderBy('condition','ASC')->pluck('condition','id');
         $countUserOffer     = Offer::where('user_id',$userId)->where('article_id', $article->id)->first();
+        $sameUserArticle    = false;
+        $articleOffers      = Offer::where('article_id', $article->id)->get();
+
+        // Check if the logged user is the same as the one who published the article
+        if ($userId == $article->user_id) {
+            $sameUserArticle    = true;
+        }
+
         if ($countUserOffer) {
             $existOffer     = true;
             $offerId        = $countUserOffer->id;
@@ -106,7 +121,9 @@ class PublicController extends Controller
             'existOffer'        => $existOffer,
             'countUserOffer'    => $countUserOffer,
             'offerId'           => $offerId,
-            'offerDetail'       => $countUserOffer
+            'offerDetail'       => $countUserOffer,
+            'sameUserArticle'   => $sameUserArticle,
+            'articleOffers'     => $articleOffers      
         ]);
     }
 
@@ -129,16 +146,16 @@ class PublicController extends Controller
             $offer->user_id = \Auth::user()->id;
             $offer->save();
             $this->imageManipulation($request->file('image'), $offer);
-            echo "Offer Updated";
+            // echo "Offer Updated";
         } else {
             $offer = new Offer($postOffer);
             $offer->user_id = \Auth::user()->id;
             $offer->save();
             $this->imageManipulation($request->file('image'), $offer);
-            echo "New Offer Saved";
+            // echo "New Offer Saved";
         }
-        // Set the action here, it's working the new and the update
-        exit();
+        $articleSlug = Article::find($articleId)->first()->slug;
+        return redirect('article/'.$articleSlug);
     }
 
     public function imageManipulation($files, $offer) {

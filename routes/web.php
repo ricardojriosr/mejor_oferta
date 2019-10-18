@@ -15,6 +15,8 @@
 //Front-end Routes
 Route::get('/', 'PublicController@index');
 Route::get('/home', 'PublicController@index');
+Route::get('/login', 'Auth\LoginController@showLoginForm');
+Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
 Route::get('/{category}', 'PublicController@category');
 Route::get('/article/{article_slug}', 'PublicController@showArticle');
 Route::get('/articles/new','PublicController@newArticleForm');

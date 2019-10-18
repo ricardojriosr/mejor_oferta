@@ -20,6 +20,9 @@
     object-fit: cover;
     vertical-align: middle;
 }
+.img-details, .img-grid {
+    background: black;
+} 
 .home-grid {
     border: 2px solid silver;
     display: flex;
