@@ -152,4 +152,18 @@ class OfferController extends Controller
         }
         return $response;
     }
+
+    public function sendImages(Request $request, $id) {
+        $response = '<div class="carousel slide" data-ride="carousel">';
+        if($request->ajax()){
+            $imgOffers = Offer::Find($id)->first();
+            if (count($imgOffers) > 0) {
+                foreach($imgOffers->offerimage as $offerimg) {
+                    $response .= "<div class='carousel-inner'><div class='carousel-item active'><img src='../img/offers/".$offerimg->url_image."' alt='".$offerimg->id."'  /></div></div>";
+                }
+            }
+        }
+        $response .= '</div>';
+        return $response;
+    }
 }

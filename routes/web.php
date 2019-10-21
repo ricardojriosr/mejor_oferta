@@ -42,6 +42,10 @@ Route::get('offers/search/{id}', [
     'uses'  => 'OfferController@search',
     'as'    => 'offers.search'
 ]);
+Route::get('offers/getimages/{id}', [
+    'uses'  => 'OfferController@sendImages',
+    'as'    => 'offers.getImages'
+]);
 
 
 Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {

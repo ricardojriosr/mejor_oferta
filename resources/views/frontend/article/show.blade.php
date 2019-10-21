@@ -153,9 +153,11 @@
             }
             ?>
             <img src="/img/offers/<?=$imageURL; ?>" alt="" class="img-fluid">
+            <button class="btn btn-success btn-block mt-2" data-offerid="{!! $offer->id; !!}">Select this Offer</button>
           </div>
           <div class="col-8 mt-2 mb-2">
             <ul class="list-group">
+              <li class="list-group-item"><u>User</u>: {!! $offer->user->name; !!}</li>
               <li class="list-group-item"><u>Price</u>: {!! $offer->price; !!}</li>
               <li class="list-group-item"><u>Condition</u>: {!! $offer->condition->condition; !!}</li>
               <li class="list-group-item"><u>Observations</u>: {!! $offer->observations; !!}</li>
@@ -175,6 +177,25 @@ if (1 == 2) {
   echo "<pre>",print_r($article),"</pre>";
 }
 ?>
+
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-carousel">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 @endsection
 
@@ -207,6 +228,18 @@ if (1 == 2) {
       }
 
   });
+
+function get_offer_images(id) {
+  $.ajax({
+    type: "GET",
+    url: "/offers/getimages/"+id,
+    data: { _token:$("input[name='_token']").val()  }
+  }).done(function( response ) {
+    console.log(response);
+    $("#modal-carousel").html(response);
+    $('.modal').modal('show');
+  });
+}
 
     
 </script>

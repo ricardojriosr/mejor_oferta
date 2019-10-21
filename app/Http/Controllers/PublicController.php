@@ -11,6 +11,8 @@ use App\Offerimage;
 use App\Category;
 use App\Condition;
 use App\Http\Controllers\ArticleController;
+use Storage;
+use File;
 
 
 class PublicController extends Controller
