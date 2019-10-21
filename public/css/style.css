@@ -35,3 +35,6 @@
 .img-details {
     width: 100%;
 }
+.border-offer {
+    border: 0.5px solid silver;
+}

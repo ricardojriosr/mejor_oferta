@@ -137,16 +137,37 @@
     @endif
     
   </div>
-  <div class="col-8 mx-auto mb-3">
+  <?php if (count($articleOffers) > 0) { ?>
+  <div class="col-8 mx-auto mt-3 mb-3">
     <?php
     // echo '<pre>',print_r($articleOffers),'</pre>';
     foreach ($articleOffers as $offer) {
     ?>
-        <?php echo '<pre>',print_r($offer),'</pre>'; ?>
+        <div class="row mb-2 border-offer">
+          <div class="col-4 mt-2 mb-2">
+            <?php
+            $imageURL = '';
+            foreach($offer->offerimage as $oImage) {
+              $imageURL = $oImage->url_image;
+              break;
+            }
+            ?>
+            <img src="/img/offers/<?=$imageURL; ?>" alt="" class="img-fluid">
+          </div>
+          <div class="col-8 mt-2 mb-2">
+            <ul class="list-group">
+              <li class="list-group-item"><u>Price</u>: {!! $offer->price; !!}</li>
+              <li class="list-group-item"><u>Condition</u>: {!! $offer->condition->condition; !!}</li>
+              <li class="list-group-item"><u>Observations</u>: {!! $offer->observations; !!}</li>
+              <li class="list-group-item"><u>Warranty</u>: {!! $offer->warranty; !!}</li>
+            </ul>
+          </div>
+        </div>
     <?php
     }
     ?>
   </div>
+  <?php } ?>
 </div>
 
 <?php

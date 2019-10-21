@@ -92,7 +92,9 @@ class PublicController extends Controller
         $existOffer         = false;
         $userId             = 0;
         $user               = auth()->user();
-        $userId             = $user->id;
+        if ($user) {
+            $userId         = $user->id;
+        }
         $offerId            = null;
         $categories         = Category::orderBy('id', 'DESC')->get();
         $article            = Article::where('slug', $article_slug)->first();
@@ -100,7 +102,11 @@ class PublicController extends Controller
         $conditions         = Condition::orderBy('condition','ASC')->pluck('condition','id');
         $countUserOffer     = Offer::where('user_id',$userId)->where('article_id', $article->id)->first();
         $sameUserArticle    = false;
-        $articleOffers      = Offer::where('article_id', $article->id)->get();
+        $articleOffers      = Offer::where('article_id', $article->id)
+            ->where('user_id', '!=', $userId)
+            ->orderBy('highlight','DESC')
+            ->orderBy('id', 'DESC')
+            ->get();
 
         // Check if the logged user is the same as the one who published the article
         if ($userId == $article->user_id) {
@@ -158,7 +164,8 @@ class PublicController extends Controller
         return redirect('article/'.$articleSlug);
     }
 
-    public function imageManipulation($files, $offer) {
+    public function imageManipulation($files, $offer) 
+    {
         if (count($files) > 0) {
             $path = public_path() . '/img/offers/';
             $images = Offerimage::where('offer_id','=',$offer->id)->get();

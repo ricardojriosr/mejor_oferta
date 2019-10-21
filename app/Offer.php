@@ -9,7 +9,7 @@ use Searchable;
 class Offer extends Model {
     //Offers in octicon-database
     protected $table = 'offer';
-    protected $fillable = ['price','condition_id','user_id','article_id','observations','warranty'];
+    protected $fillable = ['price','condition_id','user_id','article_id','observations','warranty', 'highlight'];
 
     public function article() {
         return $this->belongsTo('App\Article');
