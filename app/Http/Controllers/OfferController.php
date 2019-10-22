@@ -154,16 +154,29 @@ class OfferController extends Controller
     }
 
     public function sendImages(Request $request, $id) {
-        $response = '<div class="carousel slide" data-ride="carousel">';
+        $response = '<div id="carouselOfferImages" class="carousel slide" data-ride="carousel"><div class="carousel-inner">';
         if($request->ajax()){
-            $imgOffers = Offer::Find($id)->first();
+            $imgOffers = Offer::Find($id);
             if (count($imgOffers) > 0) {
+                $i = 0;
                 foreach($imgOffers->offerimage as $offerimg) {
-                    $response .= "<div class='carousel-inner'><div class='carousel-item active'><img src='../img/offers/".$offerimg->url_image."' alt='".$offerimg->id."'  /></div></div>";
+                    $activeClass = '';
+                    if ($i == 0) {
+                        $activeClass = ' active';
+                    }
+                    $response .= "<div class='carousel-item ".$activeClass."'><img src='../img/offers/".$offerimg->url_image."' alt='".$offerimg->id."' class='img-fluid vw-100' height='300' /></div>";
+                    $i++;
                 }
             }
         }
-        $response .= '</div>';
+        $response .= "</div><a class='carousel-control-prev' href='#carouselOfferImages' role='button' data-slide='prev'>
+        <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+        <span class='sr-only'>Previous</span>
+      </a>
+      <a class='carousel-control-next' href='#carouselOfferImages' role='button' data-slide='next'>
+        <span class='carousel-control-next-icon' aria-hidden='true'></span>
+        <span class='sr-only'>Next</span>
+      </a></div>";
         return $response;
     }
 }

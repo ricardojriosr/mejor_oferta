@@ -3,7 +3,11 @@
 @section('content')
 
 <div class="row">
+  
   <div class="col-8 mx-auto text-center mb-3">
+
+
+    
     <?php
     foreach ($article->images as $img) {
       if ($img->default == 1) {
@@ -76,6 +80,7 @@
                 // echo "<pre>",print_r($offerDetail->offerimage),"</pre>";
                 foreach ($offerDetail->offerimage as $value) {
                     echo '<img src="/img/offers/'.$value->url_image.'" class="img-fluid img-offer" />';
+                    break;
                 }
                 $selectedCondition  = $countUserOffer->condition_id;
                 $selectedPrice      = $countUserOffer->price;
@@ -152,7 +157,7 @@
               break;
             }
             ?>
-            <img src="/img/offers/<?=$imageURL; ?>" alt="" class="img-fluid">
+            <a href="javascript:void(0)" onclick="get_offer_images({!! $offer->id; !!});"><img src="/img/offers/<?=$imageURL; ?>" alt="" class="img-fluid"></a>
             <button class="btn btn-success btn-block mt-2" data-offerid="{!! $offer->id; !!}">Select this Offer</button>
           </div>
           <div class="col-8 mt-2 mb-2">
@@ -172,17 +177,20 @@
   <?php } ?>
 </div>
 
+
+
 <?php
 if (1 == 2) {
   echo "<pre>",print_r($article),"</pre>";
 }
 ?>
 
-<div class="modal" tabindex="-1" role="dialog">
+
+<div class="modal" tabindex="-1" role="dialog" id="modal_offer">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">Gallery</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -236,8 +244,8 @@ function get_offer_images(id) {
     data: { _token:$("input[name='_token']").val()  }
   }).done(function( response ) {
     console.log(response);
-    $("#modal-carousel").html(response);
-    $('.modal').modal('show');
+    $("#modal_offer .modal-body").html(response);
+    $('#modal_offer').modal('show');
   });
 }
 
