@@ -164,7 +164,7 @@ class OfferController extends Controller
                     if ($i == 0) {
                         $activeClass = ' active';
                     }
-                    $response .= "<div class='carousel-item ".$activeClass."'><img src='../img/offers/".$offerimg->url_image."' alt='".$offerimg->id."' class='img-fluid vw-100' height='300' /></div>";
+                    $response .= "<div class='carousel-item ".$activeClass."'><img src='../img/offers/".$offerimg->url_image."' alt='".$offerimg->id."' class='img-fluid img-carousel' /></div>";
                     $i++;
                 }
             }

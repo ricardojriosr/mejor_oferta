@@ -38,3 +38,9 @@
 .border-offer {
     border: 0.5px solid silver;
 }
+.img-carousel {
+    height: 400px;
+    min-height: 400px;
+    max-height: 400px;
+    width: auto;
+}

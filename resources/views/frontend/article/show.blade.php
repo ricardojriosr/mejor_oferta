@@ -75,13 +75,25 @@
               $formMethod         = 'POST';
               $showEditButton     = '';
               $hiddenOfferField   = '';
+              $i = 0;
               if ($existOffer) {
-                // echo "Offer";
-                // echo "<pre>",print_r($offerDetail->offerimage),"</pre>";
+                echo '<div id="carouselOfferImages" class="mx-auto carousel slide" data-ride="carousel"><div class="carousel-inner">';
                 foreach ($offerDetail->offerimage as $value) {
-                    echo '<img src="/img/offers/'.$value->url_image.'" class="img-fluid img-offer" />';
-                    break;
+                    $activeClass = '';
+                    if ($i == 0) {
+                        $activeClass = ' active';
+                    }
+                    echo '<div class="carousel-item '.$activeClass.'"><img src="/img/offers/'.$value->url_image.'" class="img-fluid img-offer img-carousel" /></div>';
+                    $i++;
                 }
+                echo "</div><a class='carousel-control-prev' href='#carouselOfferImages' role='button' data-slide='prev'>
+                  <span class='carousel-control-prev-icon' aria-hidden='true'></span>
+                  <span class='sr-only'>Previous</span>
+                </a>
+                <a class='carousel-control-next' href='#carouselOfferImages' role='button' data-slide='next'>
+                  <span class='carousel-control-next-icon' aria-hidden='true'></span>
+                  <span class='sr-only'>Next</span>
+                </a></div>";
                 $selectedCondition  = $countUserOffer->condition_id;
                 $selectedPrice      = $countUserOffer->price;
                 $selectedObs        = $countUserOffer->observations;
@@ -225,11 +237,13 @@ if (1 == 2) {
             $("#form-offer input").prop('disabled', true);
             $("#form-offer select").prop('disabled', true);
             document.getElementById("activateFields").childNodes[0].nodeValue = "Change Offer";
+            $("#main-container > div.row > div:nth-child(2) > div > div > h5").html('Edit Offer');
           } else {
             editState = true;
             $("#form-offer input").prop('disabled', false);
-            $("#form-offer select").prop('disabled', false);
+            $("#form-offer select").prop('disabled', fal'[[[se);
             document.getElementById("activateFields").childNodes[0].nodeValue = "Cancel";
+            $("#main-container > div.row > div:nth-child(2) > div > div > h5").html('Update Offer');
           }
           e.preventDefault();
         });
