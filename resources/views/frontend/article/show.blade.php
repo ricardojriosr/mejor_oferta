@@ -169,8 +169,12 @@
               break;
             }
             ?>
-            <a href="javascript:void(0)" onclick="get_offer_images({!! $offer->id; !!});"><img src="/img/offers/<?=$imageURL; ?>" alt="" class="img-fluid"></a>
-            <button class="btn btn-success btn-block mt-2" data-offerid="{!! $offer->id; !!}">Select this Offer</button>
+            <a href="javascript:void(0)" onclick="get_offer_images({!! $offer->id; !!});"><img src="/img/offers/<?=$imageURL; ?>" alt="" class="img-fluid mb-2"></a>
+            <form>
+              <input type="hidden" id="offer_id" name="offer_id" value="{!! $offer->id; !!}">
+              <input type="submit" class="btn btn-success mx-auto" value="Select this Offer">
+            </form>
+            
           </div>
           <div class="col-8 mt-2 mb-2">
             <ul class="list-group">
@@ -241,7 +245,7 @@ if (1 == 2) {
           } else {
             editState = true;
             $("#form-offer input").prop('disabled', false);
-            $("#form-offer select").prop('disabled', fal'[[[se);
+            $("#form-offer select").prop('disabled', false);
             document.getElementById("activateFields").childNodes[0].nodeValue = "Cancel";
             $("#main-container > div.row > div:nth-child(2) > div > div > h5").html('Update Offer');
           }
