@@ -58,9 +58,14 @@ class ArticleController extends Controller
         $slugify = new Slugify();
         $article->slug = $slugify->slugify($response['name'], '_');
         $article->user_id = \Auth::user()->id;
+        if (!isset($response->highlight)) {
+            $article->highlight = false;
+        } else {
+            $article->highlight = true;
+        }
         $article->save();
 
-        //Manipulacion de imagenes
+        //Image Manipulation
         $i = 0;
         $files = $request->file('image');
         foreach($files as $file)
@@ -124,6 +129,11 @@ class ArticleController extends Controller
         $article = Article::find($id);
         $article->fill($request->all());
         $article->user_id = \Auth::user()->id;
+        if (!isset($request->all()->highlight)) {
+            $article->highlight = false;
+        } else {
+            $article->highlight = true;
+        }
         $article->save();
         $images = ImageArticle::where('article_id','=',$id)->get();
         foreach ($images as $image) {

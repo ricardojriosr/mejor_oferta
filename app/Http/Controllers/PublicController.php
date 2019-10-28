@@ -44,6 +44,11 @@ class PublicController extends Controller
         $slugify = new Slugify();
         $article->slug = $slugify->slugify($response['name'], '_');
         $article->user_id = \Auth::user()->id;
+        if (!isset($response->highlight)) {
+            $article->highlight = false;
+        } else {
+            $article->highlight = true;
+        }
         $article->save();
 
         //Manipulacion de imagenes
@@ -80,7 +85,9 @@ class PublicController extends Controller
             $categoryFindID         = $categoryID->id;
             $categoryDisplayName    = $categoryID->display_name;
         }
-        $articles = Article::where('category_id', $categoryFindID)->orderBy('id', 'DESC')->paginate(8);
+        $articles = Article::where('category_id', $categoryFindID)
+            ->orderBy('id', 'DESC')
+            ->paginate(8);
         $categories = Category::orderBy('id', 'DESC')->get();
         return view('frontend.home', [
             'articles' => $articles, 

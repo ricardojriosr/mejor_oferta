@@ -26,7 +26,7 @@
                 data-target="#app-navbar-collapse"> <span class="sr-only">Toggle Navigation</span>
                 </button>
                 <!-- Branding
-                Image --> <a class="navbar-brand" href="{{ url('/') }}">
+                Image --> <a class="navbar-brand" href="{{ url('/admin/home') }}">
 
                                 {{ config('app.name', 'Laravel') }}
 

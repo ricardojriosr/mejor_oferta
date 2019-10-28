@@ -60,6 +60,11 @@
                     </div>
 
                     <div class="form-group">
+                        {!! Form::label('highlight','Highlight?')!!}
+                        {!! Form::checkbox('highlight',null,null, array('id'=>'highlight')) !!}
+                    </div>
+
+                    <div class="form-group">
                         {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
                     </div>
 
