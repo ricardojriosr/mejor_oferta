@@ -51,6 +51,7 @@ Route::get('offers/getimages/{id}', [
 Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {
     //Back-end Routes
     Route::get('/home', 'HomeController@index');
+    Route::resource('roles', 'RoleController');
     Route::resource('categories', 'CategoryController');
     Route::get('categories/{id}/destroy', [
         'uses'  => 'CategoryController@destroy',

@@ -19,7 +19,9 @@ class RoleController extends Controller
         $users->each(function($user) {
             $user->roles;
         });
-        
+        return view('backend.roles.index', [
+            'users' => $users, 
+        ]);
     }
 
     /**
@@ -51,7 +53,11 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        $userInfo = User::find($id);
+        $userInfo->Roles;
+        return view('backend.roles.show', [
+            'userInfo' => $userInfo, 
+        ]);
     }
 
     /**
