@@ -91,6 +91,25 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->roles()->detach();
+        $user->delete();
+        return redirect()->route('roles.index');
+    }
+
+    // Function to Update User Role
+    public function updateRole(Request $request) 
+    {
+        $resp = $request->all();
+        $user = User::find($resp['user_id']);
+        $role_admin = Role::where('name', 'admin')->first();
+        $role_user  = Role::where('name', 'user')->first();
+        $user->roles()->detach();
+        if ((isset($resp['user_admin'])) && ($resp['user_admin'] == 'on')) {
+            $user->roles()->attach($role_admin);
+        } else {
+            $user->roles()->attach($role_user);
+        }
+        return redirect()->route('roles.show', $resp['user_id']);
     }
 }

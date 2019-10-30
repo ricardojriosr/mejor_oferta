@@ -48,10 +48,14 @@ Route::get('offers/getimages/{id}', [
 ]);
 
 
-Route::group(['prefix' => 'admin','middleware' => 'auth'], function() {
+Route::group(['prefix' => 'admin','middleware' => 'admin'], function() {
     //Back-end Routes
     Route::get('/home', 'HomeController@index');
     Route::resource('roles', 'RoleController');
+    Route::post('/roles/update/', [
+        'uses'  => 'RoleController@updateRole',
+        'as'    => 'roles.update'
+    ]);
     Route::resource('categories', 'CategoryController');
     Route::get('categories/{id}/destroy', [
         'uses'  => 'CategoryController@destroy',

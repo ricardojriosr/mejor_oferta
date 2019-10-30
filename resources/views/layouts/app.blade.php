@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <link href="//gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link href="/css/fileinput.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
@@ -44,6 +45,8 @@
                         <li class="nav-item"><a href="{{ Route('conditions.index')}}" class="nav-link">Conditions</a>
                         </li>
                         <li class="nav-item"><a href="{{ Route('offers.index')}}" onclick="delete_cookie('selectedArticleOffer')" class="nav-link">Offers</a>
+                        <li class="nav-item"><a href="{{ Route('roles.index')}}" class="nav-link">User/Roles</a>
+                        </li>
                         </li>
                     </ul>
                   </div>
@@ -101,6 +104,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <script src="//gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
