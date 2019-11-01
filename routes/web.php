@@ -47,7 +47,7 @@ Route::get('offers/getimages/{id}', [
     'as'    => 'offers.getImages'
 ]);
 
-
+// Admin / Back End Routes
 Route::group(['prefix' => 'admin','middleware' => 'admin'], function() {
     //Back-end Routes
     Route::get('/home', 'HomeController@index');
