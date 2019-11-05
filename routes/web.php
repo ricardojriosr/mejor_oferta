@@ -21,7 +21,8 @@ Route::get('/{category}', 'PublicController@category');
 Route::get('/article/{article_slug}', 'PublicController@showArticle');
 Route::get('/articles/new','PublicController@newArticleForm');
 Route::post('/article/offer',['uses'  => 'PublicController@newOffer','as' => 'article.offer' ]);
-Route::post('/articles/new',['uses'  => 'PublicController@storeArticle','as' => 'article.storenew' ]);
+Route::post('/articles/new',['uses'  => 'PublicController@storeArticle','as' => 'article.storenew']);
+Route::post('/offer/new', ['uses'  => 'PublicController@acceptOffer','as' => 'accept.offer']);
 
 
 

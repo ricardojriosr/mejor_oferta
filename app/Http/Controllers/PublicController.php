@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Article;
+use App\Acceptedoffer;
 use App\Offer;
-use Cocur\Slugify\Slugify;
 use App\ImageArticle;
 use App\Offerimage;
 use App\Category;
 use App\Condition;
+use Cocur\Slugify\Slugify;
 use App\Http\Controllers\ArticleController;
+use Illuminate\Http\Request;
 use Storage;
 use File;
-
 
 class PublicController extends Controller
 {
@@ -28,7 +28,8 @@ class PublicController extends Controller
     }
 
     // ATICLE FUNCTIONS
-    public function newArticleForm() {
+    public function newArticleForm() 
+    {
         $categories = Category::orderBy('id', 'DESC')->get();
         $selectedCategories   = Category::orderBy('name','ASC')->pluck('name','id');
         return view('frontend.article.create', [
@@ -105,17 +106,24 @@ class PublicController extends Controller
             $userId         = $user->id;
         }
         $offerId            = null;
+        $acceptedOfferID    = null;
         $categories         = Category::orderBy('id', 'DESC')->get();
         $article            = Article::where('slug', $article_slug)->first();
         $selectCategories   = Category::orderBy('name','ASC')->pluck('name','id');
         $conditions         = Condition::orderBy('condition','ASC')->pluck('condition','id');
         $countUserOffer     = Offer::where('user_id',$userId)->where('article_id', $article->id)->first();
+        $acceptedOffer      = Acceptedoffer::where('article_id',$article->id)->first();
         $sameUserArticle    = false;
         $articleOffers      = Offer::where('article_id', $article->id)
             ->where('user_id', '!=', $userId)
             ->orderBy('highlight','DESC')
             ->orderBy('id', 'DESC')
             ->get();
+
+        // If there is an accepted offer, get the ID of the offer and change the form for Selected Offer
+        if ($acceptedOffer) {
+            $acceptedOfferID = $acceptedOffer->offer_id;
+        }
 
         // Check if the logged user is the same as the one who published the article
         if ($userId == $article->user_id) {
@@ -127,6 +135,13 @@ class PublicController extends Controller
             $offerId        = $countUserOffer->id;
             $countUserOffer->offerimage;
         }
+
+        $isHighlighted = false;
+        if ((isset($countUserOffer->highlight)) && ($countUserOffer->highlight)) {
+            $isHighlighted = true;
+        }
+
+
         return view('frontend.article.show', [
             'article'           => $article,
             'categories'        => $categories,
@@ -138,7 +153,9 @@ class PublicController extends Controller
             'offerId'           => $offerId,
             'offerDetail'       => $countUserOffer,
             'sameUserArticle'   => $sameUserArticle,
-            'articleOffers'     => $articleOffers      
+            'articleOffers'     => $articleOffers,
+            'isHighlighted'     => $isHighlighted,
+            'acceptedOfferID'   => $acceptedOfferID,   
         ]);
     }
 
@@ -146,7 +163,10 @@ class PublicController extends Controller
     {
         $existOffer = false;
         $postOffer = $request->all();
-        // dd($postOffer['article_id']); exit();
+        $isHighlight = false;
+        if ($postOffer['highlight'] == 'Y') {
+            $isHighlight = true;
+        }
         $articleId = $postOffer['article_id'];
         $userId = 0;
         $user = auth()->user();
@@ -159,12 +179,14 @@ class PublicController extends Controller
             $offer = Offer::find($postOffer['offer_id']);
             $offer->fill($request->all());
             $offer->user_id = \Auth::user()->id;
+            $offer->highlight = $isHighlight;
             $offer->save();
             $this->imageManipulation($request->file('image'), $offer);
             // echo "Offer Updated";
         } else {
             $offer = new Offer($postOffer);
             $offer->user_id = \Auth::user()->id;
+            $offer->highlight = $isHighlight;
             $offer->save();
             $this->imageManipulation($request->file('image'), $offer);
             // echo "New Offer Saved";
@@ -173,6 +195,32 @@ class PublicController extends Controller
         return redirect('article/'.$articleSlug);
     }
 
+    //  Accept Offer
+    public function acceptOffer(Request $request) {
+        $response       = $request->all();
+        $article_id     = $response->article_id;
+        $offer_id       = $response->offer_id;
+
+        // Look if the article has any offer
+        $acceptedOffer  = Acceptedoffer::where('article_id', $article_id)->first();
+
+        // If has offer, delete old ofe
+        if ($acceptedOffer) {
+            $acceptedOffer->delete();
+        } 
+        // Add new offer
+        $newOffer = new Acceptedoffer();
+        $newOffer->offer_id = $offer_id ;
+        $newOffer->article_id = $article_id ;
+        $newOffer->save();
+
+        // Redirect to the Article View
+        $articleSlug = Article::find($article_id)->first()->slug;
+        return redirect('article/'.$articleSlug);
+
+    }
+
+    // Image Manipulation 
     public function imageManipulation($files, $offer) 
     {
         if (count($files) > 0) {
@@ -183,8 +231,7 @@ class PublicController extends Controller
                 $image->delete();
             }
             $i = 0;
-            foreach($files as $file)
-            {
+            foreach($files as $file) {
                 $name = 'offer_' . time() . '_' . $i . '.' . $file->getClientOriginalName();
                 $file->move($path, $name);
                 $image = new Offerimage();
