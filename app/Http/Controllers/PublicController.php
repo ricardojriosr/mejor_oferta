@@ -198,13 +198,13 @@ class PublicController extends Controller
     //  Accept Offer
     public function acceptOffer(Request $request) {
         $response       = $request->all();
-        $article_id     = $response->article_id;
-        $offer_id       = $response->offer_id;
+        $article_id     = $response['article_id'];
+        $offer_id       = $response['offer_id'];
 
         // Look if the article has any offer
         $acceptedOffer  = Acceptedoffer::where('article_id', $article_id)->first();
 
-        // If has offer, delete old ofe
+        // If has offer, delete old offer
         if ($acceptedOffer) {
             $acceptedOffer->delete();
         } 

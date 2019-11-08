@@ -56,9 +56,7 @@
       </div>
     </div>
   </div>
-  @if (Auth::guest())
-  @else
-  
+  @if (!Auth::guest())
   <div class="col-8 mx-auto mb-3">
     <?php if (!$sameUserArticle) { ?>
     <div class="card">
@@ -176,11 +174,13 @@
             <?php if ($acceptedOfferID == $offer->id) { ?>
               SELECTED OFFER
             <?php } else { ?> 
-            {{ Form::open(['route' => 'accept.offer', 'method' => 'POST', 'id' => 'form-accept-offer']) }}
-              <input type="hidden" id="offer_id" name="offer_id" value="{!! $offer->id; !!}">
-              <input type="hidden" id="article_id2" name="article_id" value="{!! $article->id; !!}">
-              <input type="submit" class="btn btn-success mx-auto" value="Select this Offer">
-            {{ Form::close() }}
+              @if (!Auth::guest())
+                {{ Form::open(['route' => 'accept.offer', 'method' => 'POST', 'id' => 'form-accept-offer']) }}
+                  <input type="hidden" id="offer_id" name="offer_id" value="{!! $offer->id; !!}">
+                  <input type="hidden" id="article_id2" name="article_id" value="{!! $article->id; !!}">
+                  <input type="submit" class="btn btn-success mx-auto" value="Select this Offer">
+                {{ Form::close() }}
+              @endif
             <?php } ?>
           </div>
           <div class="col-8 mt-2 mb-2">

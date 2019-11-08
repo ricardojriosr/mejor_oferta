@@ -20,11 +20,18 @@ Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
 Route::get('/{category}', 'PublicController@category');
 Route::get('/article/{article_slug}', 'PublicController@showArticle');
 Route::get('/articles/new','PublicController@newArticleForm');
-Route::post('/article/offer',['uses'  => 'PublicController@newOffer','as' => 'article.offer' ]);
-Route::post('/articles/new',['uses'  => 'PublicController@storeArticle','as' => 'article.storenew']);
-Route::post('/offer/new', ['uses'  => 'PublicController@acceptOffer','as' => 'accept.offer']);
-
-
+Route::post('/article/offer',[
+    'uses'  => 'PublicController@newOffer',
+    'as' => 'article.offer' 
+]);
+Route::post('/articles/new',[
+    'uses'  => 'PublicController@storeArticle',
+    'as' => 'article.storenew'
+]);
+Route::post('/offer/new', [
+    'uses'  => 'PublicController@acceptOffer',
+    'as' => 'accept.offer'
+]);
 
 //Ajax Routes
 Route::get('/subcategories/ajax/{id}',[
