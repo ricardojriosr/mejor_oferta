@@ -175,11 +175,13 @@
               SELECTED OFFER
             <?php } else { ?> 
               @if (!Auth::guest())
-                {{ Form::open(['route' => 'accept.offer', 'method' => 'POST', 'id' => 'form-accept-offer']) }}
-                  <input type="hidden" id="offer_id" name="offer_id" value="{!! $offer->id; !!}">
-                  <input type="hidden" id="article_id2" name="article_id" value="{!! $article->id; !!}">
-                  <input type="submit" class="btn btn-success mx-auto" value="Select this Offer">
-                {{ Form::close() }}
+                @if ($sameUserArticle)
+                  {{ Form::open(['route' => 'accept.offer', 'method' => 'POST', 'id' => 'form-accept-offer']) }}
+                    <input type="hidden" id="offer_id" name="offer_id" value="{!! $offer->id; !!}">
+                    <input type="hidden" id="article_id2" name="article_id" value="{!! $article->id; !!}">
+                    <input type="submit" class="btn btn-success mx-auto" value="Select this Offer">
+                  {{ Form::close() }}
+                @endif
               @endif
             <?php } ?>
           </div>

@@ -44,6 +44,11 @@ class PublicController extends Controller
         $response = $request->all();
         $slugify = new Slugify();
         $article->slug = $slugify->slugify($response['name'], '_');
+        $isHighlight = false;
+        if ($postOffer['highlight'] == 'Y') {
+            $isHighlight = true;
+        }
+        $article->highlight = $isHighlight;
         $article->user_id = \Auth::user()->id;
         if (!isset($response->highlight)) {
             $article->highlight = false;

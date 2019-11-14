@@ -15,6 +15,11 @@
   </div>
 
   <div class="form-group">
+    {!! Form::label('highlight', 'Highlight') !!}? 
+    {!! Form::checkbox('highlight', 'Y', false); !!}
+  </div>
+
+  <div class="form-group">
       {!! Form::label('category_id','Category')!!}
       {!! Form::select('category_id', $selectedCategories, null, ['class' => 'custom-select custom-select-lg select-category','required', 'placeholder' => 'Select an option...']) !!}
   </div>
